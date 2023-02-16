@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fakestore</string>
+    <string name="rate_count">(%1$d)</string>
+    <string name="price">%1$f $</string>
 </resources>
