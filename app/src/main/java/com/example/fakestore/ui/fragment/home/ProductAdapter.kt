@@ -1,14 +1,14 @@
-package com.example.fakestore.ui.main
+package com.example.fakestore.ui.fragment.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fakestore.data.models.Product
+import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.ItemProductBinding
 
-class TestAdapter(private val interaction: Interaction? = null) :
+class ProductAdapter(private val interaction: Interaction? = null) :
     ListAdapter<Product, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -28,12 +28,12 @@ class TestAdapter(private val interaction: Interaction? = null) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return TestViewHolder.from(parent, interaction = interaction)
+        return ProductViewHolder.from(parent, interaction = interaction)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is TestViewHolder -> {
+            is ProductViewHolder -> {
                 val item = getItem(position)
                 holder.onBind(item)
             }
@@ -41,8 +41,7 @@ class TestAdapter(private val interaction: Interaction? = null) :
     }
 
 
-    class TestViewHolder
-    constructor(
+    class ProductViewHolder constructor(
         private val binding: ItemProductBinding,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -57,13 +56,13 @@ class TestAdapter(private val interaction: Interaction? = null) :
 
 
         companion object {
-            fun from(viewGroup: ViewGroup, interaction: Interaction?): TestViewHolder {
+            fun from(viewGroup: ViewGroup, interaction: Interaction?): ProductViewHolder {
                 val bind = ItemProductBinding.inflate(
                     LayoutInflater.from(viewGroup.context),
                     viewGroup,
                     false
                 )
-                return TestViewHolder(bind, interaction = interaction)
+                return ProductViewHolder(bind, interaction = interaction)
             }
         }
 

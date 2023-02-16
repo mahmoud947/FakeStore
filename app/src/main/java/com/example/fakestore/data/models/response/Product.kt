@@ -1,4 +1,4 @@
-package com.example.fakestore.data.models
+package com.example.fakestore.data.models.response
 
 
 import androidx.annotation.Keep

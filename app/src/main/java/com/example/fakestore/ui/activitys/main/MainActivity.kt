@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.main
+package com.example.fakestore.ui.activitys.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,17 +17,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
     layoutId = R.layout.activity_main,
     viewModelClass = MainViewModel::class.java
 ) {
-    val testAdapter = TestAdapter()
+
     override fun onInitView() {
-        binding.rv.adapter=testAdapter
+
     }
 
     override fun onInitViewModel() {
-        viewModel.products.observe(this) {productDataState->
-            productDataState.getData()?.let { products ->
-                testAdapter.submitList(products)
-            }
-        }
+
     }
 
 }
