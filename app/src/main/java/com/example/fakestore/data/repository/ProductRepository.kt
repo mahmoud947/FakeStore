@@ -10,8 +10,8 @@ class ProductRepository @Inject constructor(
 ) :BaseRepository(){
 
     suspend fun getProducts():List<Product> =
-        api.getProducts()
+        api.getProducts().products
 
-    suspend fun getProductInCategory(category:String):List<Product> = api.getProductInCategory(category)
+    suspend fun getProductInCategory(category:String):List<Product> = api.getProductInCategory(category).products
 
 }

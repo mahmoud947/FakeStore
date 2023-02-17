@@ -24,8 +24,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                setImageUrl="@{product.image}"
-
+                setImageUrl="@{product.thumbnail}"
                 android:layout_width="200dp"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
@@ -50,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:rating="@{product.rating.rateAsFloat}"
+                    android:rating="@{product.ratingAsFloat}"
                     tools:rating="4" />
 
                 <TextView
@@ -60,7 +59,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:paddingStart="8dp"
-                    android:text="@{@string/rate_count(product.rating.count)}"
+                    android:text="@{@string/rate_count(product.stock)}"
                     android:textAlignment="center"
                     android:textSize="14sp"
                     tools:text="(0)" />

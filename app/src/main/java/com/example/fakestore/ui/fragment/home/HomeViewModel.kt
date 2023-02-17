@@ -25,7 +25,7 @@ class HomeViewModel @Inject constructor(
     val jeweleryCategory: LiveData<DataState<List<Product>>> get() = _jeweleryCategory
 
     private val _womenCategory = MutableLiveData<DataState<List<Product>>>()
-    val womenCategory: LiveData<DataState<List<Product>>> get() = _manCategory
+    val womenCategory: LiveData<DataState<List<Product>>> get() = _womenCategory
 
     init {
         getManProducts()
@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
     private fun getManProducts() {
         handleData(
             filterCriteria = {
-                repository.getProductInCategory("men's clothing")
+                repository.getProductInCategory("mens-shirts")
             }, data = _manCategory
         )
     }
@@ -45,7 +45,7 @@ class HomeViewModel @Inject constructor(
     private fun getElectronicsProducts() {
         handleData(
             filterCriteria = {
-                repository.getProductInCategory("electronics")
+                repository.getProductInCategory("laptops")
             }, data = _electronicsCategory
         )
     }
@@ -53,7 +53,7 @@ class HomeViewModel @Inject constructor(
     private fun getJeweleryProducts() {
         handleData(
             filterCriteria = {
-                repository.getProductInCategory("jewelery")
+                repository.getProductInCategory("womens-jewellery")
             }, data = _jeweleryCategory
         )
     }
@@ -61,7 +61,7 @@ class HomeViewModel @Inject constructor(
     private fun getWomenProducts() {
         handleData(
             filterCriteria = {
-                repository.getProductInCategory("women's clothing")
+                repository.getProductInCategory("womens-dresses")
             }, data = _womenCategory
         )
     }

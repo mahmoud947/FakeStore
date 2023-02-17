@@ -36,6 +36,8 @@
                     android:textSize="32sp"
                     android:textStyle="bold" />
 
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_men"
                     android:layout_width="match_parent"

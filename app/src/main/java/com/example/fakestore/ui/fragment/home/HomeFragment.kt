@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fakestore.R
 import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
+import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.FragmentHomeBinding
 import com.example.fakestore.ui.uiModel.News
+import com.example.fakestore.utils.WrapContentLinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,14 +31,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         jeweleryAdapter = ProductAdapter()
         electronicsAdapter = ProductAdapter()
 
+
+
         manlayoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         electronicslayoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         womenlayoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         jewelerylayoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         binding.collectionNews.news = News(title = "New Collection", image = R.drawable.collection)
         binding.streetClothesNews.news =
@@ -66,25 +70,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     override fun onInitViewModel() {
+
         viewModel.manCategory.observe(this) { productDataState ->
+            menAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 menAdapter.submitList(products)
             }
         }
 
         viewModel.womenCategory.observe(this) { productDataState ->
+            womenAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 womenAdapter.submitList(products)
             }
         }
 
         viewModel.jeweleryCategory.observe(this) { productDataState ->
+           jeweleryAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 jeweleryAdapter.submitList(products)
             }
         }
 
         viewModel.electronicsCategory.observe(this) { productDataState ->
+            electronicsAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 electronicsAdapter.submitList(products)
             }
