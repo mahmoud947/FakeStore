@@ -106,17 +106,31 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/tv_category"
                 app:layout_constraintStart_toStartOf="@+id/tv_category"
                 app:layout_constraintTop_toBottomOf="@+id/tv_category">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    oldPrice="@{@string/price(product.price)}"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/price(product.price)}"
+                    android:layout_marginHorizontal="4dp"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    tools:text="10$" />
+
+
+                <TextView
+                    android:text="@{@string/newPrice(product.getPriceAfterDiscount)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"
                     android:textSize="16sp"
                     tools:text="10$" />
             </LinearLayout>

@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
 
+
             <include
                 android:id="@+id/streetClothesNews"
                 layout="@layout/item_news" />

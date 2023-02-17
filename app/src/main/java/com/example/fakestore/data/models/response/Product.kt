@@ -2,6 +2,9 @@ package com.example.fakestore.data.models.response
 
 
 import androidx.annotation.Keep
+import java.text.DecimalFormat
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 @Keep
 data class Product(
@@ -16,6 +19,12 @@ data class Product(
     val stock: Int,
     val thumbnail: String,
     val title: String
-){
-    fun ratingAsFloat():Float = this.rating.toFloat()
+) {
+    fun ratingAsFloat(): Float = this.rating.toFloat()
+    fun getPriceAfterDiscount(): String {
+        val priceAsDouble = this.price - (discountPercentage / 100).toFloat()
+        val df = DecimalFormat("#.##")
+        return df.format(priceAsDouble)
+    }
+
 }

@@ -66,7 +66,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             adapter = womenAdapter
         }
 
-
     }
 
     override fun onInitViewModel() {
