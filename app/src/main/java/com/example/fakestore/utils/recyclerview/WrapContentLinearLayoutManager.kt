@@ -1,4 +1,4 @@
-package com.example.fakestore.utils
+package com.example.fakestore.utils.recyclerview
 
 import android.content.Context
 import android.util.Log

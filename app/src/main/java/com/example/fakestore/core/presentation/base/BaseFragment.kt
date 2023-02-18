@@ -9,27 +9,35 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.example.fakestore.utils.dialogs.ErrorDialog
 import com.example.fakestore.utils.dialogs.LoadingDialog
+
 
 
 abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutId: Int,
-    private val viewModelClass: Class<VM>
+    private val viewModelClass: Class<VM>,
+    private val isSharedViewModel:Boolean
 ) : Fragment() {
     lateinit var viewModel: VM
     lateinit var binding: DB
 
-     lateinit var loadingDialog: LoadingDialog
-     lateinit var errorDialog: ErrorDialog
+    lateinit var loadingDialog: LoadingDialog
+    lateinit var errorDialog: ErrorDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.let {
-            viewModel = ViewModelProvider(it)[viewModelClass]
+        if (isSharedViewModel) {
+            viewModel = ViewModelProvider(requireActivity())[viewModelClass]
+        } else {
+            viewModel = ViewModelProvider(this)[viewModelClass]
         }
+
+
     }
 
     abstract fun onInitDataBinding()
@@ -44,11 +52,15 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(
         loadingDialog = LoadingDialog(requireActivity())
         errorDialog = ErrorDialog(activity = requireActivity(), buttonTitle = "Retry")
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
+
+
         onInitDataBinding()
         onInitViewModel()
+
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,6 +79,8 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onDestroy() {
         super.onDestroy()
+
+
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.fragment.home
+package com.example.fakestore.ui.fragment.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.ItemProductBinding
 import com.example.fakestore.databinding.ItemProductShimmerBinding
+
 
 private const val SHIMMER_TYPE = 0
 private const val PRODUCT_TYPE = 1

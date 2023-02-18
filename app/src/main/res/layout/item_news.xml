@@ -33,7 +33,7 @@
             android:layout_marginStart="6dp"
             android:text="@{news.title}"
             android:textColor="@color/white"
-            android:textSize="32sp"
+            android:textSize="52sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/iv_news"
             app:layout_constraintEnd_toEndOf="parent"

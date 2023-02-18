@@ -2,11 +2,16 @@ package com.example.fakestore.ui.activitys.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.presentation.base.BaseViewModel
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.data.repository.ProductRepository
+import com.example.fakestore.utils.errorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val TAG = "MainViewModel"
@@ -31,4 +36,15 @@ class MainViewModel @Inject constructor(
         )
     }
 
+   private fun <T> handleData(
+        filterCriteria: suspend () -> T,
+        data: MutableLiveData<DataState<T>>
+    ) {
+        data.value = DataState.Loading
+        viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
+            delay(1500)
+            val result = filterCriteria.invoke()
+            data.postValue(DataState.Success(result))
+        }
+    }
 }

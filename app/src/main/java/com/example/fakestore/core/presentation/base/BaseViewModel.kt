@@ -12,20 +12,11 @@ import javax.inject.Inject
 
 open class BaseViewModel @Inject constructor() : ViewModel() {
 
-     fun <T> handleData(
-        filterCriteria: suspend () -> T,
-        data: MutableLiveData<DataState<T>>
-    ) {
-        data.value = DataState.Loading
-        viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
-            delay(1500)
-            val result = filterCriteria.invoke()
-            data.postValue(DataState.Success(result))
-        }
-    }
+
 
     override fun onCleared() {
         super.onCleared()
+
 
     }
 }

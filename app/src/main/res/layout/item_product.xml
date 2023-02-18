@@ -59,7 +59,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:paddingStart="8dp"
-                    android:text="@{@string/rate_count(product.stock)}"
+                    ratingCount="@{product.ratingAsFloat}"
                     android:textAlignment="center"
                     android:textSize="14sp"
                     tools:text="(0)" />

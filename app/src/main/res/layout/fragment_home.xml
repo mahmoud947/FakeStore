@@ -9,19 +9,17 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
+
         tools:context=".ui.fragment.home.HomeFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
-
-
-            <include
-                android:id="@+id/streetClothesNews"
-                layout="@layout/item_news" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +36,6 @@
                     android:textStyle="bold" />
 
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_men"
                     android:layout_width="match_parent"
@@ -49,8 +46,9 @@
             </LinearLayout>
 
             <include
-                android:id="@+id/fashionNews"
+                android:id="@+id/streetClothesNews"
                 layout="@layout/item_news" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,8 +74,9 @@
             </LinearLayout>
 
             <include
-                android:id="@+id/blackNews"
+                android:id="@+id/fashionNews"
                 layout="@layout/item_news" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,8 +101,9 @@
             </LinearLayout>
 
             <include
-                android:id="@+id/collectionNews"
+                android:id="@+id/blackNews"
                 layout="@layout/item_news" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,6 +128,9 @@
                     tools:listitem="@layout/item_product" />
             </LinearLayout>
 
+            <include
+                android:id="@+id/collectionNews"
+                layout="@layout/item_news" />
 
         </LinearLayout>
 

@@ -6,12 +6,14 @@ import com.example.fakestore.data.remote.FakeStoreApi
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
-   private val api: FakeStoreApi
-) :BaseRepository(){
+    private val api: FakeStoreApi
+) : BaseRepository() {
 
-    suspend fun getProducts():List<Product> =
+    suspend fun getProducts(): List<Product> =
         api.getProducts().products
 
-    suspend fun getProductInCategory(category:String):List<Product> = api.getProductInCategory(category).products
+    suspend fun getProductInCategory(category: String): List<Product> =
+        api.getProductInCategory(category).products
 
+    suspend fun getProducts(query: String):List<Product> = api.productSearch(query).products
 }
