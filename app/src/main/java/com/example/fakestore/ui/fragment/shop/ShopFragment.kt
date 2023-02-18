@@ -23,7 +23,7 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
     override fun onInitDataBinding() {
         loadingDialog.startLoadingDialog()
         viewPagerAdapter = ViewPagerAdapter(
-            fragmentManager = requireActivity().supportFragmentManager,
+            fragmentManager = childFragmentManager,
             lifecycle,
         )
         binding.vpCategory.adapter = viewPagerAdapter
@@ -43,5 +43,6 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
             }
         }
     }
+
 
 }

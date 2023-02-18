@@ -22,10 +22,11 @@ class CategoryViewModel @Inject constructor(
     val products: LiveData<DataState<List<Product>>> get() = _products
 
 
-     fun getProducts(category: String) {
+    fun getProducts(category: String) {
         handleData(filterCriteria = {
             repository.getProductInCategory(category)
         }, data = _products)
+
     }
 
     private fun <T> handleData(

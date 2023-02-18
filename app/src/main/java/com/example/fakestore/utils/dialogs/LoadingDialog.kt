@@ -8,7 +8,6 @@ import com.example.fakestore.R
 
 class LoadingDialog constructor(
     private val activity: Activity,
-
     ) {
     private lateinit var dialog: AlertDialog
     private var isShow: Boolean = false

@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.fragment.category
 
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fakestore.R
 import com.example.fakestore.core.data.getData
@@ -11,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryFragment(
-    private val category: String
+    private val category: String =""
 ) : BaseFragment<FragmentCategoryBinding, CategoryViewModel>(
     layoutId = R.layout.fragment_category,
     viewModelClass = CategoryViewModel::class.java,
@@ -43,10 +44,14 @@ class CategoryFragment(
 
 
     companion object {
+        var category ="category"
         @JvmStatic
         fun newInstance(category: String) =
-            CategoryFragment(category)
+            CategoryFragment(category).apply {
+                arguments = Bundle().apply {
+                    putString(category,category)
+                }
+            }
     }
-
 
 }
