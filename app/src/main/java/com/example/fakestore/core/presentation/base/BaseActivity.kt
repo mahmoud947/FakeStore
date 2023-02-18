@@ -19,8 +19,7 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel>(
     }
 
 
-
-    lateinit var viewModel:VM
+    lateinit var viewModel: VM
 
     abstract fun onInitView()
     abstract fun onInitViewModel()
@@ -35,7 +34,6 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel>(
     }
 
 
-
     override fun onPause() {
         super.onPause()
     }
@@ -46,6 +44,7 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModelStore.clear()
     }
 
 }

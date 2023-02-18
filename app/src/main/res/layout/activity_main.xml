@@ -66,12 +66,10 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
             <androidx.fragment.app.FragmentContainerView
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/fragmentContainerView"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
@@ -81,8 +79,6 @@
                 android:saveEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/navigationView"
                 app:navGraph="@navigation/main_nav_graph" />
-
-        </androidx.core.widget.NestedScrollView>
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

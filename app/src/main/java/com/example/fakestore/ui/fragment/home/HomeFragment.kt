@@ -1,17 +1,17 @@
 package com.example.fakestore.ui.fragment.home
 
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.Toast
+import android.os.Bundle
+import android.view.*
 import androidx.core.view.MenuHost
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fakestore.R
 import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
+import com.example.fakestore.core.presentation.base.BaseFragmentTest
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.FragmentHomeBinding
 import com.example.fakestore.ui.fragment.home.adapters.ProductAdapter
@@ -20,10 +20,10 @@ import com.example.fakestore.utils.recyclerview.WrapContentLinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
-    layoutId = R.layout.fragment_home,
+class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(
     viewModelClass = HomeViewModel::class.java,
-    isSharedViewModel = false
+    layoutId = R.layout.fragment_home,
+    isSharedViewModel = true
 ) {
     lateinit var menAdapter: ProductAdapter
     lateinit var electronicsAdapter: ProductAdapter
@@ -36,14 +36,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     private lateinit var jewelerylayoutManager: LinearLayoutManager
 
     private lateinit var menuHost: MenuHost
-    private lateinit var navController:NavController
+    private lateinit var navController: NavController
 
 
     override fun onInitDataBinding() {
         navController = findNavController()
-         setHasOptionsMenu(true)
-       // menuHost = requireActivity()
-        menAdapter = ProductAdapter(interaction = object :ProductAdapter.Interaction{
+        setHasOptionsMenu(true)
+        // menuHost = requireActivity()
+        menAdapter = ProductAdapter(interaction = object : ProductAdapter.Interaction {
             override fun onItemSelected(position: Int, item: Product) {
                 navController.navigate(HomeFragmentDirections.actionHomeToSearch())
             }
@@ -91,30 +91,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     }
 
-    override fun onInitViewModel() {
 
-        viewModel.manCategory.observe(this) { productDataState ->
+
+
+    override fun onInitViewModel() {
+        viewModel.manCategory.observe(viewLifecycleOwner) { productDataState ->
             menAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 menAdapter.submitList(products)
             }
         }
 
-        viewModel.womenCategory.observe(this) { productDataState ->
+        viewModel.womenCategory.observe(viewLifecycleOwner) { productDataState ->
             womenAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 womenAdapter.submitList(products)
             }
         }
 
-        viewModel.jeweleryCategory.observe(this) { productDataState ->
+        viewModel.jeweleryCategory.observe(viewLifecycleOwner) { productDataState ->
             jeweleryAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 jeweleryAdapter.submitList(products)
             }
         }
 
-        viewModel.electronicsCategory.observe(this) { productDataState ->
+        viewModel.electronicsCategory.observe(viewLifecycleOwner) { productDataState ->
             electronicsAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { products ->
                 electronicsAdapter.submitList(products)
@@ -131,8 +133,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
         return true
     }
-
-
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

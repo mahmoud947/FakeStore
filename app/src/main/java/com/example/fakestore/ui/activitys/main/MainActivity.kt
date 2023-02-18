@@ -4,6 +4,9 @@ import android.graphics.Color
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -80,5 +83,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
     override fun onInitViewModel() {
 
     }
+
+
+
 
 }

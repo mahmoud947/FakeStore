@@ -23,4 +23,7 @@ interface FakeStoreApi {
     ): ProductsResponse
 
 
+    @GET("products/categories")
+    suspend fun getCategories(): List<String>
+
 }

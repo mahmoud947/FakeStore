@@ -1,6 +1,7 @@
 package com.example.fakestore.utils.recyclerview
 
 import android.content.Context
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -21,17 +22,22 @@ class AutoFitGridLayoutManager(context: Context?, columnWidth: Int) :
     }
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
-        if (columnWidthChanged && columnWidth > 0) {
-            val totalSpace: Int
-            totalSpace = if (orientation == VERTICAL) {
-                width - paddingRight - paddingLeft
-            } else {
-                height - paddingTop - paddingBottom
+        try {
+            if (columnWidthChanged && columnWidth > 0) {
+                val totalSpace: Int
+                totalSpace = if (orientation == VERTICAL) {
+                    width - paddingRight - paddingLeft
+                } else {
+                    height - paddingTop - paddingBottom
+                }
+                val spanCount = Math.max(1, totalSpace / columnWidth)
+                setSpanCount(spanCount)
+                columnWidthChanged = false
             }
-            val spanCount = Math.max(1, totalSpace / columnWidth)
-            setSpanCount(spanCount)
-            columnWidthChanged = false
+            super.onLayoutChildren(recycler, state)
+        }catch (e: IndexOutOfBoundsException){
+            Log.e("TAG", "meet a IOOBE in RecyclerView")
         }
-        super.onLayoutChildren(recycler, state)
+
     }
 }

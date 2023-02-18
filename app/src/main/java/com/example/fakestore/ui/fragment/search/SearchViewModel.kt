@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val repository: ProductRepository
+    private val repository: ProductRepository,
 ) : BaseViewModel() {
 
     private val _searchResult = MutableLiveData<DataState<List<Product>>>()

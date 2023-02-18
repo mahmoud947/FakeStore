@@ -5,43 +5,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.navigation.NavBackStackEntry
-import com.example.fakestore.R
 import com.example.fakestore.utils.dialogs.ErrorDialog
 import com.example.fakestore.utils.dialogs.LoadingDialog
 
-
-
-abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(
-    @LayoutRes
-    private val layoutId: Int,
-    private val viewModelClass: Class<VM>,
-    private val isSharedViewModel:Boolean,
-) : Fragment() {
-    lateinit var viewModel: VM
+abstract class BaseFragmentTest<DB : ViewDataBinding, VM : BaseViewModel?>() : Fragment() {
     lateinit var binding: DB
-
     lateinit var loadingDialog: LoadingDialog
     lateinit var errorDialog: ErrorDialog
 
+    abstract fun initDataBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): DB
+
+    abstract val viewModel:VM?
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = if (isSharedViewModel) {
-            ViewModelProvider(requireActivity())[viewModelClass]
-        } else {
-            ViewModelProvider(this)[viewModelClass]
-        }
     }
 
-    abstract fun onInitDataBinding()
+
+
+    abstract fun onInitView()
     abstract fun onInitViewModel()
 
 
@@ -50,14 +39,13 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = initDataBinding(inflater, container, savedInstanceState)
         loadingDialog = LoadingDialog(requireActivity())
         errorDialog = ErrorDialog(activity = requireActivity(), buttonTitle = "Retry")
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-
-        onInitDataBinding()
-        onInitViewModel()
+        onInitView()
+       // onInitViewModel()
 
         return binding.root
     }
