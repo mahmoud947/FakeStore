@@ -16,4 +16,6 @@
     <color name="error">#F01F0E</color>
     <color name="green">#2AA952</color>
     <color name="gold">#FFBA49</color>
+    <color name="black_with_alpha">#55000000</color>
+
 </resources>

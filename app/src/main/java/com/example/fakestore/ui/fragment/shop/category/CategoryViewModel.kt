@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.fragment.category
+package com.example.fakestore.ui.fragment.shop.category
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -37,7 +37,6 @@ class CategoryViewModel @Inject constructor(
     ) {
         data.value = DataState.Loading
         viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
-            delay(1500)
             val result = filterCriteria.invoke()
             data.postValue(DataState.Success(result))
         }

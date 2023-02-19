@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.fragment.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.presentation.base.BaseViewModel
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.data.repository.ProductRepository
+import com.example.fakestore.ui.uiModel.HomeModel
 import com.example.fakestore.utils.errorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,62 +16,44 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "HomeViewModel"
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: ProductRepository
 ) : BaseViewModel() {
 
-    //TODO:DO IT WITH MAP
-    private val _manCategory = MutableLiveData<DataState<List<Product>>>()
-    val manCategory: LiveData<DataState<List<Product>>> get() = _manCategory
+    private val _categoryMap = MutableLiveData<DataState<Map<String, HomeModel>>>()
+    val categoryMap: LiveData<DataState<Map<String, HomeModel>>> get() = _categoryMap
 
-    private val _electronicsCategory = MutableLiveData<DataState<List<Product>>>()
-    val electronicsCategory: LiveData<DataState<List<Product>>> get() = _electronicsCategory
 
-    private val _jeweleryCategory = MutableLiveData<DataState<List<Product>>>()
-    val jeweleryCategory: LiveData<DataState<List<Product>>> get() = _jeweleryCategory
-
-    private val _womenCategory = MutableLiveData<DataState<List<Product>>>()
-    val womenCategory: LiveData<DataState<List<Product>>> get() = _womenCategory
+    private val homeCategoryList =
+        listOf("mens-shirts", "laptops", "womens-jewellery", "womens-dresses")
 
     init {
-        getManProducts()
-        getElectronicsProducts()
-        getJeweleryProducts()
-        getWomenProducts()
+        getProductOFCategory()
     }
 
-    private fun getManProducts() {
-        handleData(
-            filterCriteria = {
-                repository.getProductInCategory("mens-shirts")
-            }, data = _manCategory
-        )
+
+    private fun getProductOFCategory() {
+        _categoryMap.postValue(DataState.Loading)
+        viewModelScope.launch(Dispatchers.IO + errorHandler(_categoryMap)) {
+            //TODO:Remove delay
+             delay(1000)
+
+            val map = mutableMapOf<String, HomeModel>()
+            for (category in homeCategoryList) {
+                val randomImage = repository.getRandomModelImage(category).urls.regular
+                val products = repository.getProductInCategory(category)
+                Log.e(TAG, "nnn: ${products.size}")
+                val homeModel: HomeModel = HomeModel(products = products, url = randomImage)
+                map[category] = homeModel
+
+            }
+            _categoryMap.postValue(DataState.Success(map))
+        }
     }
 
-    private fun getElectronicsProducts() {
-        handleData(
-            filterCriteria = {
-                repository.getProductInCategory("laptops")
-            }, data = _electronicsCategory
-        )
-    }
-
-    private fun getJeweleryProducts() {
-        handleData(
-            filterCriteria = {
-                repository.getProductInCategory("womens-jewellery")
-            }, data = _jeweleryCategory
-        )
-    }
-
-    private fun getWomenProducts() {
-        handleData(
-            filterCriteria = {
-                repository.getProductInCategory("womens-dresses")
-            }, data = _womenCategory
-        )
-    }
 
     private fun <T> handleData(
         filterCriteria: suspend () -> T,

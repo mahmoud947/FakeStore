@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.fragment.category
+package com.example.fakestore.ui.fragment.shop.category
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -6,16 +6,17 @@ import com.example.fakestore.R
 import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
 import com.example.fakestore.databinding.FragmentCategoryBinding
-import com.example.fakestore.ui.fragment.category.adapters.CategoryAdapter
+import com.example.fakestore.ui.fragment.shop.ShopViewModel
+import com.example.fakestore.ui.fragment.shop.category.adapters.CategoryAdapter
 import com.example.fakestore.utils.recyclerview.WrapContentLinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryFragment(
     private val category: String = ""
-) : BaseFragment<FragmentCategoryBinding, CategoryViewModel>(
+) : BaseFragment<FragmentCategoryBinding, ShopViewModel>(
     layoutId = R.layout.fragment_category,
-    viewModelClass = CategoryViewModel::class.java,
+    viewModelClass = ShopViewModel::class.java,
     isSharedViewModel = false
 ) {
     private lateinit var productAdapter: CategoryAdapter

@@ -32,9 +32,9 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
 
     override fun onInitViewModel() {
 
-        viewModel.categories.observe(viewLifecycleOwner){categoriesDataSate->
-            when(categoriesDataSate){
-                is DataState.Success-> {
+        viewModel.categories.observe(viewLifecycleOwner) { categoriesDataSate ->
+            when (categoriesDataSate) {
+                is DataState.Success -> {
                     categoriesDataSate.data.let {
                         viewPagerAdapter.submitData(it)
                         TabLayoutMediator(binding.tabLayout, binding.vpCategory) { tab, postion ->
@@ -42,9 +42,9 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
                         }.attach()
                     }
                 }
-               is DataState.Error->{
+                is DataState.Error -> {
 
-               }
+                }
                 else -> {}
             }
 

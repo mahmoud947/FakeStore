@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.presentation.base.BaseViewModel
+import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.data.repository.ProductRepository
 import com.example.fakestore.utils.errorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,17 +22,28 @@ class ShopViewModel @Inject constructor(
     private val _categories = MutableLiveData<DataState<List<String>>>()
     val categories: LiveData<DataState<List<String>>> get() = _categories
 
+    private val _products = MutableLiveData<DataState<List<Product>>>()
+    val products: LiveData<DataState<List<Product>>> get() = _products
+
 
     init {
-
         getCategories()
     }
 
     private fun getCategories() {
-
         handleData(filterCriteria = {
             repository.getCategories()
         }, _categories)
+    }
+
+
+
+
+    fun getProducts(category: String) {
+        handleData(filterCriteria = {
+            repository.getProductInCategory(category)
+        }, data = _products)
+
     }
 
     private fun <T> handleData(
@@ -44,4 +56,5 @@ class ShopViewModel @Inject constructor(
             data.postValue(DataState.Success(result))
         }
     }
+
 }

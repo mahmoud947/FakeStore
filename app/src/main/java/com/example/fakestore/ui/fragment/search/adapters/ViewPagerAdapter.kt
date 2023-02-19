@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.fakestore.ui.fragment.category.CategoryFragment
+import com.example.fakestore.ui.fragment.shop.category.CategoryFragment
 
 class ViewPagerAdapter(
     fragmentManager: FragmentManager,

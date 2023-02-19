@@ -1,6 +1,7 @@
 package com.example.fakestore.di
 
 import com.example.fakestore.data.remote.FakeStoreApi
+import com.example.fakestore.data.remote.UnsplashApi
 import com.example.fakestore.data.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
@@ -15,6 +16,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideProductRepository(
-        api: FakeStoreApi
-    ): ProductRepository = ProductRepository(api = api)
+        api: FakeStoreApi,
+        unsplashApi: UnsplashApi
+    ): ProductRepository = ProductRepository(api = api,unsplashApi)
 }

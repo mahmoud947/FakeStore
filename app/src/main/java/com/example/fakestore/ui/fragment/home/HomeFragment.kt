@@ -1,17 +1,13 @@
 package com.example.fakestore.ui.fragment.home
 
-import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuHost
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fakestore.R
 import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
-import com.example.fakestore.core.presentation.base.BaseFragmentTest
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.FragmentHomeBinding
 import com.example.fakestore.ui.fragment.home.adapters.ProductAdapter
@@ -20,7 +16,7 @@ import com.example.fakestore.utils.recyclerview.WrapContentLinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     viewModelClass = HomeViewModel::class.java,
     layoutId = R.layout.fragment_home,
     isSharedViewModel = true
@@ -65,11 +61,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(
         jewelerylayoutManager =
             WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        binding.collectionNews.news = News(title = "New Collection", image = R.drawable.collection)
-        binding.streetClothesNews.news =
-            News(title = "Street clothes", image = R.drawable.street_clothes)
-        binding.fashionNews.news = News(title = "Fashion sale", image = R.drawable.fashion)
-        binding.blackNews.news = News(title = "Diamond in black", image = R.drawable.black)
+//        binding.collectionNews.news = News(title = "New Collection", image = R.drawable.collection)
+//        binding.streetClothesNews.news =
+//            News(title = "Street clothes", image = R.drawable.street_clothes)
+//        binding.fashionNews.news = News(title = "Fashion sale", image = R.drawable.fashion)
+//        binding.blackNews.news = News(title = "Diamond in black", image = R.drawable.black)
 
 
         binding.rvElectronics.apply {
@@ -92,34 +88,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(
     }
 
 
-
-
     override fun onInitViewModel() {
-        viewModel.manCategory.observe(viewLifecycleOwner) { productDataState ->
-            menAdapter.isLoading = productDataState.isLoading()
-            productDataState.getData()?.let { products ->
-                menAdapter.submitList(products)
-            }
-        }
 
-        viewModel.womenCategory.observe(viewLifecycleOwner) { productDataState ->
-            womenAdapter.isLoading = productDataState.isLoading()
-            productDataState.getData()?.let { products ->
-                womenAdapter.submitList(products)
-            }
-        }
+        viewModel.categoryMap.observe(viewLifecycleOwner) { dataState ->
+            menAdapter.isLoading = dataState.isLoading()
+            womenAdapter.isLoading = dataState.isLoading()
+            jeweleryAdapter.isLoading = dataState.isLoading()
+            electronicsAdapter.isLoading = dataState.isLoading()
 
-        viewModel.jeweleryCategory.observe(viewLifecycleOwner) { productDataState ->
-            jeweleryAdapter.isLoading = productDataState.isLoading()
-            productDataState.getData()?.let { products ->
-                jeweleryAdapter.submitList(products)
+            if (!dataState.isLoading()){
+                binding.collectionNews.gonView.visibility = View.GONE
+                binding.streetClothesNews.gonView.visibility = View.GONE
+                binding.fashionNews.gonView.visibility = View.GONE
+                binding.blackNews.gonView.visibility = View.GONE
             }
-        }
 
-        viewModel.electronicsCategory.observe(viewLifecycleOwner) { productDataState ->
-            electronicsAdapter.isLoading = productDataState.isLoading()
-            productDataState.getData()?.let { products ->
-                electronicsAdapter.submitList(products)
+            dataState.getData()?.let { mapOfStringAndMapOfStringListOfProducts ->
+                val menModel = mapOfStringAndMapOfStringListOfProducts["mens-shirts"]
+                val womenModel = mapOfStringAndMapOfStringListOfProducts["womens-dresses"]
+                val jeweleryModel = mapOfStringAndMapOfStringListOfProducts["womens-jewellery"]
+                val electronicsModel = mapOfStringAndMapOfStringListOfProducts["laptops"]
+
+
+
+                binding.collectionNews.news =
+                    menModel?.url?.let { News(title = "New Collection", image = it) }
+                binding.streetClothesNews.news =
+                    womenModel?.url?.let { News(title = "Street clothes", image = it) }
+                binding.fashionNews.news =
+                    jeweleryModel?.url?.let { News(title = "Fashion sale", image = it) }
+                binding.blackNews.news =
+                    electronicsModel?.url?.let { News(title = "Diamond in black", image = it) }
+
+                menAdapter.submitList(menModel?.products)
+                womenAdapter.submitList(womenModel?.products)
+                jeweleryAdapter.submitList(jeweleryModel?.products)
+                electronicsAdapter.submitList(electronicsModel?.products)
             }
         }
 

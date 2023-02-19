@@ -1,6 +1,7 @@
 package com.example.fakestore.di
 
 import com.example.fakestore.data.remote.FakeStoreApi
+import com.example.fakestore.data.remote.UnsplashApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,13 +36,21 @@ object NetworkModule {
     @Singleton
     fun provideRetrofitBuilder(client: OkHttpClient): Retrofit.Builder =
         Retrofit.Builder()
-            .baseUrl("https://dummyjson.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
 
     @Provides
     @Singleton
     fun provideFakeStoreApi(builder: Retrofit.Builder): FakeStoreApi =
-        builder.build().create(FakeStoreApi::class.java)
+        builder
+            .baseUrl("https://dummyjson.com/")
+            .build().create(FakeStoreApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUnsplashApi(builder: Retrofit.Builder): UnsplashApi =
+        builder
+            .baseUrl("https://api.unsplash.com/")
+            .build().create(UnsplashApi::class.java)
 
 }

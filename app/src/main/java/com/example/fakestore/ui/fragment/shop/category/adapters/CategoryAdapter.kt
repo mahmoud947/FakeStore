@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.fragment.category.adapters
+package com.example.fakestore.ui.fragment.shop.category.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.ItemProductBinding
 import com.example.fakestore.databinding.ItemProductInCategoryBinding
+import com.example.fakestore.databinding.ItemProductInCategoryShimmerBinding
 import com.example.fakestore.databinding.ItemProductShimmerBinding
 
 private const val SHIMMER_TYPE = 0
@@ -93,7 +94,7 @@ class CategoryAdapter(private val interaction: Interaction? = null) :
 
 
     class ProductShimmerViewHolder constructor(
-        private val binding: ItemProductShimmerBinding,
+        private val binding: ItemProductInCategoryShimmerBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(startShimmer: Boolean) {
@@ -107,7 +108,7 @@ class CategoryAdapter(private val interaction: Interaction? = null) :
 
         companion object {
             fun from(viewGroup: ViewGroup): ProductShimmerViewHolder {
-                val bind = ItemProductShimmerBinding.inflate(
+                val bind = ItemProductInCategoryShimmerBinding.inflate(
                     LayoutInflater.from(viewGroup.context),
                     viewGroup,
                     false

@@ -10,36 +10,56 @@
             type="com.example.fakestore.ui.uiModel.News" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="350dp">
 
-        <ImageView
-            android:id="@+id/iv_news"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/gonView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            android:elevation="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_new_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:setImageSrc="@{news.image}"
-            tools:srcCompat="@drawable/street_clothes" />
+            app:layout_constraintTop_toTopOf="parent">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/dark_gray" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_news"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxHeight="400dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:setImageUrl="@{news.image}"
+        tools:srcCompat="@drawable/street_clothes" />
 
         <TextView
             android:id="@+id/tv_new_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
+            android:layout_height="100dp"
+            android:background="@color/black_with_alpha"
+            android:gravity="center"
             android:text="@{news.title}"
             android:textColor="@color/white"
-            android:textSize="52sp"
+            android:textSize="@dimen/_40ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_news"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_news"
-            app:layout_constraintVertical_bias="0.8"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="Street clothes" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout></layout>
