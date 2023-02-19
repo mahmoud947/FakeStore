@@ -1,5 +1,6 @@
 package com.example.fakestore.utils.dialogs
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
@@ -11,6 +12,7 @@ class LoadingDialog constructor(
     ) {
     private lateinit var dialog: AlertDialog
     private var isShow: Boolean = false
+
     fun startLoadingDialog() {
         if (isShow)
             return
@@ -29,6 +31,6 @@ class LoadingDialog constructor(
             dialog.dismiss()
             isShow = false
         }
-
     }
+
 }

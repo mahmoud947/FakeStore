@@ -6,28 +6,30 @@ import com.example.fakestore.R
 import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
 import com.example.fakestore.databinding.FragmentCategoryBinding
-import com.example.fakestore.ui.fragment.home.adapters.ProductAdapter
-import com.example.fakestore.utils.recyclerview.AutoFitGridLayoutManager
+import com.example.fakestore.ui.fragment.category.adapters.CategoryAdapter
+import com.example.fakestore.utils.recyclerview.WrapContentLinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryFragment(
-    private val category: String =""
+    private val category: String = ""
 ) : BaseFragment<FragmentCategoryBinding, CategoryViewModel>(
     layoutId = R.layout.fragment_category,
     viewModelClass = CategoryViewModel::class.java,
-    isSharedViewModel = true
+    isSharedViewModel = false
 ) {
-    lateinit var productAdapter: ProductAdapter
-    lateinit var productLayoutManger:AutoFitGridLayoutManager
+    private lateinit var productAdapter: CategoryAdapter
+    private lateinit var productLayoutManger: WrapContentLinearLayoutManager
 
 
     override fun onInitDataBinding() {
-        productAdapter = ProductAdapter()
-        productLayoutManger = AutoFitGridLayoutManager(requireContext(),500)
+        productAdapter = CategoryAdapter()
+        productLayoutManger =
+            WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvCategory.apply {
             layoutManager = productLayoutManger
             adapter = productAdapter
+            setHasFixedSize(true)
         }
         viewModel.getProducts(category)
     }
@@ -38,18 +40,18 @@ class CategoryFragment(
             productsDataState.getData()?.let {
                 productAdapter.submitList(it)
             }
-
         }
     }
 
 
     companion object {
-        var category ="category"
+        var category = "category"
+
         @JvmStatic
         fun newInstance(category: String) =
             CategoryFragment(category).apply {
                 arguments = Bundle().apply {
-                    putString(category,category)
+                    putString(category, category)
                 }
             }
     }

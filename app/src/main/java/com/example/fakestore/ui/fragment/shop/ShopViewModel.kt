@@ -21,11 +21,14 @@ class ShopViewModel @Inject constructor(
     private val _categories = MutableLiveData<DataState<List<String>>>()
     val categories: LiveData<DataState<List<String>>> get() = _categories
 
+
     init {
+
         getCategories()
     }
 
     private fun getCategories() {
+
         handleData(filterCriteria = {
             repository.getCategories()
         }, _categories)
@@ -37,7 +40,6 @@ class ShopViewModel @Inject constructor(
     ) {
         data.value = DataState.Loading
         viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
-            delay(1500)
             val result = filterCriteria.invoke()
             data.postValue(DataState.Success(result))
         }

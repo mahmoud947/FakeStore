@@ -26,8 +26,8 @@
 
                 <ImageView
                     android:id="@+id/imageViewShimmer"
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_130sdp"
                     android:background="@color/gray"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -53,8 +53,7 @@
                     android:id="@+id/tv_title_shimmer"
                     android:layout_width="0dp"
                     android:layout_height="20dp"
-
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     android:background="@color/dark_gray"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -69,7 +68,7 @@
                     android:id="@+id/tv_category_shimmer"
                     android:layout_width="0dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
 
                     android:background="@color/dark_gray"
                     android:textAlignment="center"
@@ -99,10 +98,12 @@
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/dark_gray"
                     app:cardCornerRadius="100dp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_title_shimmer"
+                    app:layout_constraintBottom_toBottomOf="@+id/ll_rating"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageViewShimmer"
-                    app:layout_constraintVertical_bias="0.97">
+                    app:layout_constraintVertical_bias="0.90999997">
 
                     <ImageView
                         android:layout_width="wrap_content"

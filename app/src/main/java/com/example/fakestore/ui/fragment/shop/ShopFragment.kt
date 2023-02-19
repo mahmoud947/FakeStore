@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.fakestore.R
+import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
 import com.example.fakestore.databinding.FragmentShopBinding
@@ -21,7 +22,6 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
 ) {
     lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onInitDataBinding() {
-        loadingDialog.startLoadingDialog()
         viewPagerAdapter = ViewPagerAdapter(
             fragmentManager = childFragmentManager,
             lifecycle,
@@ -31,16 +31,23 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
     }
 
     override fun onInitViewModel() {
+
         viewModel.categories.observe(viewLifecycleOwner){categoriesDataSate->
-            if (!categoriesDataSate.isLoading()){
-                loadingDialog.dismissDialog()
+            when(categoriesDataSate){
+                is DataState.Success-> {
+                    categoriesDataSate.data.let {
+                        viewPagerAdapter.submitData(it)
+                        TabLayoutMediator(binding.tabLayout, binding.vpCategory) { tab, postion ->
+                            tab.text = it[postion]
+                        }.attach()
+                    }
+                }
+               is DataState.Error->{
+
+               }
+                else -> {}
             }
-            categoriesDataSate.getData()?.let {
-                viewPagerAdapter.submitData(it)
-                TabLayoutMediator(binding.tabLayout, binding.vpCategory) { tab, postion ->
-                    tab.text = it[postion]
-                }.attach()
-            }
+
         }
     }
 

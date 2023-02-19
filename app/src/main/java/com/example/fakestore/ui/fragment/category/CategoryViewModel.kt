@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.fragment.category
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "CategoryViewModel"
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val repository: ProductRepository
@@ -39,6 +41,11 @@ class CategoryViewModel @Inject constructor(
             val result = filterCriteria.invoke()
             data.postValue(DataState.Success(result))
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d(TAG, "onCleared:Category ViewModel Cleared")
     }
 
 }

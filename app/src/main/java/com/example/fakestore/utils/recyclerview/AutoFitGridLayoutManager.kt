@@ -26,11 +26,11 @@ class AutoFitGridLayoutManager(context: Context?, columnWidth: Int) :
             if (columnWidthChanged && columnWidth > 0) {
                 val totalSpace: Int
                 totalSpace = if (orientation == VERTICAL) {
-                    width - paddingRight - paddingLeft
+                    width - paddingLeft-paddingRight
                 } else {
                     height - paddingTop - paddingBottom
                 }
-                val spanCount = Math.max(1, totalSpace / columnWidth)
+                val spanCount = 1.coerceAtLeast(totalSpace / columnWidth)
                 setSpanCount(spanCount)
                 columnWidthChanged = false
             }
