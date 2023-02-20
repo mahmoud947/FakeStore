@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.fragment.shop
+package com.example.fakestore.ui.fragment.productDetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,35 +14,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShopViewModel @Inject constructor(
+class ProductDetailViewModel @Inject constructor(
     private val repository: ProductRepository
 ) : BaseViewModel() {
+    private val _product = MutableLiveData<DataState<Product>>()
+    val product: LiveData<DataState<Product>> get() = _product
 
-    private val _categories = MutableLiveData<DataState<List<String>>>()
-    val categories: LiveData<DataState<List<String>>> get() = _categories
-
-    private val _products = MutableLiveData<DataState<List<Product>>>()
-    val products: LiveData<DataState<List<Product>>> get() = _products
-
-
-    init {
-        getCategories()
-    }
-
-    private fun getCategories() {
+    fun getProduct(id: Int) {
         handleData(filterCriteria = {
-            repository.getCategories()
-        }, _categories)
-    }
-
-
-
-
-    fun getProducts(category: String) {
-        handleData(filterCriteria = {
-            repository.getProductsInCategory(category)
-        }, data = _products)
-
+            repository.getProduct(id)
+        }, data = _product)
     }
 
     private fun <T> handleData(
@@ -55,5 +36,4 @@ class ShopViewModel @Inject constructor(
             data.postValue(DataState.Success(result))
         }
     }
-
 }

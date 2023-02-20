@@ -1,6 +1,7 @@
 package com.example.fakestore.ui.fragment.home
 
 import android.view.*
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -39,9 +40,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         navController = findNavController()
         setHasOptionsMenu(true)
         // menuHost = requireActivity()
+
         menAdapter = ProductAdapter(interaction = object : ProductAdapter.Interaction {
             override fun onItemSelected(position: Int, item: Product) {
-                navController.navigate(HomeFragmentDirections.actionHomeToSearch())
+                //Toast.makeText(requireContext(),item.id.toString(),Toast.LENGTH_LONG).show()
+                navController.navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(item.id,item.title))
             }
 
         })

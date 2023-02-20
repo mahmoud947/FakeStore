@@ -11,7 +11,6 @@ import com.example.fakestore.data.repository.ProductRepository
 import com.example.fakestore.utils.errorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +25,7 @@ class CategoryViewModel @Inject constructor(
 
     fun getProducts(category: String) {
         handleData(filterCriteria = {
-            repository.getProductInCategory(category)
+            repository.getProductsInCategory(category)
         }, data = _products)
 
     }

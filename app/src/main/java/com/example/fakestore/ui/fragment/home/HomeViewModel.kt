@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.presentation.base.BaseViewModel
-import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.data.repository.ProductRepository
 import com.example.fakestore.ui.uiModel.HomeModel
 import com.example.fakestore.utils.errorHandler
@@ -43,10 +42,10 @@ class HomeViewModel @Inject constructor(
 
             val map = mutableMapOf<String, HomeModel>()
             for (category in homeCategoryList) {
-                val randomImage = repository.getRandomModelImage(category).urls.regular
-                val products = repository.getProductInCategory(category)
+                //val randomImage = repository.getRandomModelImage(category).urls.regular
+                val products = repository.getProductsInCategory(category)
                 Log.e(TAG, "nnn: ${products.size}")
-                val homeModel: HomeModel = HomeModel(products = products, url = randomImage)
+                val homeModel: HomeModel = HomeModel(products = products, url = products[(0 ..homeCategoryList.size).random()].thumbnail)
                 map[category] = homeModel
 
             }

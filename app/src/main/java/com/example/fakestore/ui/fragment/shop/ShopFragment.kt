@@ -1,13 +1,7 @@
 package com.example.fakestore.ui.fragment.shop
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.example.fakestore.R
 import com.example.fakestore.core.data.DataState
-import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
 import com.example.fakestore.databinding.FragmentShopBinding
 import com.example.fakestore.ui.fragment.search.adapters.ViewPagerAdapter
@@ -24,10 +18,9 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
     override fun onInitDataBinding() {
         viewPagerAdapter = ViewPagerAdapter(
             fragmentManager = childFragmentManager,
-            lifecycle,
+            lifecycle = lifecycle,
         )
         binding.vpCategory.adapter = viewPagerAdapter
-
     }
 
     override fun onInitViewModel() {
@@ -47,7 +40,6 @@ class ShopFragment : BaseFragment<FragmentShopBinding, ShopViewModel>(
                 }
                 else -> {}
             }
-
         }
     }
 

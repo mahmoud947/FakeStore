@@ -14,6 +14,23 @@ fun setOldPrice(textView: TextView,value:String){
     }
 }
 
+@BindingAdapter("price")
+fun setPrice(textView: TextView, value:Int){
+    textView.apply {
+        text = textView.context.getString(R.string.price,value)
+        paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    }
+}
+
+@BindingAdapter("priceAfterDiscount")
+fun setPriceAfterDiscount(textView: TextView, value:String){
+    textView.apply {
+        text = textView.context.getString(R.string.newPrice,value)
+        paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    }
+}
+
+
 @BindingAdapter("ratingCount")
 fun setRatingCount(textView: TextView,value:Double){
     val df = DecimalFormat("#.#")

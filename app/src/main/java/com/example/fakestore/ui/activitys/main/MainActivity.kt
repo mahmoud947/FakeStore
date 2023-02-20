@@ -1,12 +1,7 @@
 package com.example.fakestore.ui.activitys.main
 
 import android.graphics.Color
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -17,9 +12,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.fakestore.R
 import com.example.fakestore.core.presentation.base.BaseActivity
 import com.example.fakestore.databinding.ActivityMainBinding
-import com.example.fakestore.ui.fragment.home.HomeFragment
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "MainActivity"
@@ -56,10 +48,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
             navController,
             appBarConfiguration
         )
+        navController.addOnDestinationChangedListener { _, destination, bandel ->
+            Toast.makeText(this, bandel?.getString("productTitle"), Toast.LENGTH_LONG).show()
+            if (destination.id == R.id.productDetailFragment) {
+                binding.tvCbTitle.text = bandel?.getString("productTitle")
+            }else{
+                binding.tvCbTitle.text = destination.label
+            }
 
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.tvCbTitle.text = destination.label
         }
 
         setSupportActionBar(binding.toolBar)
@@ -83,8 +79,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
     override fun onInitViewModel() {
 
     }
-
-
 
 
 }
