@@ -20,10 +20,19 @@ class ProductDetailViewModel @Inject constructor(
     private val _product = MutableLiveData<DataState<Product>>()
     val product: LiveData<DataState<Product>> get() = _product
 
+    private val _suggestion = MutableLiveData<DataState<List<Product>>>()
+    val suggestion: LiveData<DataState<List<Product>>> get() = _suggestion
+
     fun getProduct(id: Int) {
         handleData(filterCriteria = {
             repository.getProduct(id)
         }, data = _product)
+    }
+
+    fun getProductsOfCategory(category: String) {
+        handleData(filterCriteria = {
+            repository.getProductsInCategory(category)
+        }, _suggestion)
     }
 
     private fun <T> handleData(

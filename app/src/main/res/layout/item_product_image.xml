@@ -15,7 +15,7 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/fashion"
         android:layout_marginHorizontal="@dimen/_4ssp"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_360sdp">
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_330sdp">
     </ImageView>
 </layout>

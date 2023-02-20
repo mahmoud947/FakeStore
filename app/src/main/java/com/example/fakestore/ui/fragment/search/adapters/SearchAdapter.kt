@@ -62,8 +62,6 @@ class SearchAdapter(private val interaction: Interaction? = null) :
                 return SearchViewHolder(bind, interaction = interaction)
             }
         }
-
-
     }
 
     interface Interaction {

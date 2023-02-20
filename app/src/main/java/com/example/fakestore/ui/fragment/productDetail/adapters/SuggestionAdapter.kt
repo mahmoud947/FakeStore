@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.fragment.home.adapters
+package com.example.fakestore.ui.fragment.productDetail.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,14 +9,14 @@ import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.ItemProductBinding
 import com.example.fakestore.databinding.ItemProductShimmerBinding
 
-
 private const val SHIMMER_TYPE = 0
 private const val PRODUCT_TYPE = 1
 
-class ProductAdapter(private val interaction: Interaction? = null) :
+class SuggestionAdapter(private val interaction: Interaction? = null) :
     ListAdapter<Product, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     var isLoading = false
+
     companion object {
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Product>() {
@@ -31,23 +31,22 @@ class ProductAdapter(private val interaction: Interaction? = null) :
     }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType== PRODUCT_TYPE){
-            ProductViewHolder.from(parent, interaction = interaction)
-        }else{
-            ProductShimmerViewHolder.from(parent)
+        return if (viewType == PRODUCT_TYPE) {
+            SuggestionViewHolder.from(parent, interaction = interaction)
+        } else {
+            SuggestionShimmerViewHolder.from(parent)
         }
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ProductViewHolder -> {
+            is SuggestionViewHolder -> {
                 val item = getItem(position)
                 holder.onBind(item)
             }
-            is ProductShimmerViewHolder->{
+            is SuggestionShimmerViewHolder -> {
                 holder.onBind(isLoading)
             }
         }
@@ -56,6 +55,7 @@ class ProductAdapter(private val interaction: Interaction? = null) :
     override fun getItemCount(): Int {
         return if (isLoading) 7 else super.getItemCount()
     }
+
     override fun getItemViewType(position: Int): Int {
         return if (isLoading) {
             SHIMMER_TYPE
@@ -64,7 +64,7 @@ class ProductAdapter(private val interaction: Interaction? = null) :
         }
     }
 
-    class ProductViewHolder constructor(
+    class SuggestionViewHolder constructor(
         private val binding: ItemProductBinding,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -76,42 +76,46 @@ class ProductAdapter(private val interaction: Interaction? = null) :
                 interaction?.onItemSelected(bindingAdapterPosition, item)
             }
         }
+
         companion object {
-            fun from(viewGroup: ViewGroup, interaction: Interaction?): ProductViewHolder {
+            fun from(viewGroup: ViewGroup, interaction: Interaction?): SuggestionViewHolder {
                 val bind = ItemProductBinding.inflate(
                     LayoutInflater.from(viewGroup.context),
                     viewGroup,
                     false
                 )
-                return ProductViewHolder(bind, interaction = interaction)
+                return SuggestionViewHolder(bind, interaction = interaction)
             }
         }
+
 
     }
 
 
-    class ProductShimmerViewHolder constructor(
+    class SuggestionShimmerViewHolder constructor(
         private val binding: ItemProductShimmerBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(startShimmer:Boolean) {
-           if (startShimmer){
-               binding.shimmerLayout.startShimmer()
-           }else{
-               binding.shimmerLayout.stopShimmer()
-               binding.shimmerLayout.setShimmer(null)
-           }
+        fun onBind(startShimmer: Boolean) {
+            if (startShimmer) {
+                binding.shimmerLayout.startShimmer()
+            } else {
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.setShimmer(null)
+            }
         }
+
         companion object {
-            fun from(viewGroup: ViewGroup): ProductShimmerViewHolder {
+            fun from(viewGroup: ViewGroup): SuggestionShimmerViewHolder {
                 val bind = ItemProductShimmerBinding.inflate(
                     LayoutInflater.from(viewGroup.context),
                     viewGroup,
                     false
                 )
-                return ProductShimmerViewHolder(bind)
+                return SuggestionShimmerViewHolder(bind)
             }
         }
+
 
     }
 

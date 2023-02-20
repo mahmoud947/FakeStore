@@ -52,10 +52,10 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/tv_brand"
@@ -73,11 +73,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toStartOf="@+id/cv_hart"
                             android:layout_marginEnd="@dimen/_16sdp"
+                            android:layout_toStartOf="@+id/cv_hart"
+                            android:foregroundGravity="center"
                             android:gravity="center"
                             android:text="@{@string/newPrice(product.getPriceAfterDiscount)}"
-                            android:foregroundGravity="center"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_21ssp"
                             android:textStyle="bold"
@@ -88,8 +88,8 @@
                             android:id="@+id/cv_hart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp"
-                            android:layout_alignParentEnd="true">
+                            android:layout_alignParentEnd="true"
+                            app:cardCornerRadius="100dp">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -141,7 +141,41 @@
                     android:layout_gravity="bottom"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:layout_marginBottom="@dimen/_32sdp"
-                    android:text="ADD TO CART" />
+                    android:text="@string/add_to_cart" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="@string/you_can_also_like_this"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/item_suggestion_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:text="12 item"
+                        android:textAlignment="center" />
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_suggestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp" />
+
 
             </LinearLayout>
 
