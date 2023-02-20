@@ -42,10 +42,11 @@ class HomeViewModel @Inject constructor(
 
             val map = mutableMapOf<String, HomeModel>()
             for (category in homeCategoryList) {
-                //val randomImage = repository.getRandomModelImage(category).urls.regular
+                val randomImage = repository.getRandomModelImage(category).urls.regular
                 val products = repository.getProductsInCategory(category)
                 Log.e(TAG, "nnn: ${products.size}")
-                val homeModel: HomeModel = HomeModel(products = products, url = products[(0 ..homeCategoryList.size).random()].thumbnail)
+               // val homeModel: HomeModel = HomeModel(products = products, url = products[(0 ..homeCategoryList.size).random()].thumbnail)
+                val homeModel: HomeModel = HomeModel(products = products, url = randomImage)
                 map[category] = homeModel
 
             }

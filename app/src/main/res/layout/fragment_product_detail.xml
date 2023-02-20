@@ -48,9 +48,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
+
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -68,17 +71,33 @@
                             tools:text="H&amp;M" />
 
                         <TextView
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="294dp"
-                            android:layout_marginEnd="@dimen/_8sdp"
-                            android:gravity="end"
+                            android:layout_toStartOf="@+id/cv_hart"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            android:gravity="center"
+                            android:text="@{@string/newPrice(product.getPriceAfterDiscount)}"
+                            android:foregroundGravity="center"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_21ssp"
                             android:textStyle="bold"
                             tools:text="19$" />
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_hart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="100dp"
+                            android:layout_alignParentEnd="true">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/favorite_border_24"
+                                app:tint="@color/gray" />
+                        </androidx.cardview.widget.CardView>
                     </RelativeLayout>
 
                     <LinearLayout
@@ -119,7 +138,8 @@
                 <com.google.android.material.button.MaterialButton
                     style="@style/customMaterialButton"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:layout_marginBottom="@dimen/_32sdp"
                     android:text="ADD TO CART" />
 

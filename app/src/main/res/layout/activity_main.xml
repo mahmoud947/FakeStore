@@ -34,17 +34,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     app:layout_collapseMode="parallax">
 
                     <TextView
                         android:id="@+id/tv_cb_title"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:fontFamily="cursive"
-                        android:maxLines="1"
-                        android:paddingHorizontal="16dp"
-                        android:layout_marginStart="4dp"
                         android:text="Summer sale"
                         android:textAlignment="center"
                         android:textColor="@color/red"

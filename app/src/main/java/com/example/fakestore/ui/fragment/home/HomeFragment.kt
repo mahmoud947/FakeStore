@@ -1,7 +1,9 @@
 package com.example.fakestore.ui.fragment.home
 
-import android.view.*
-import android.widget.Toast
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.core.view.MenuHost
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -41,16 +43,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         setHasOptionsMenu(true)
         // menuHost = requireActivity()
 
-        menAdapter = ProductAdapter(interaction = object : ProductAdapter.Interaction {
+        val onItemClicked = object : ProductAdapter.Interaction {
             override fun onItemSelected(position: Int, item: Product) {
-                //Toast.makeText(requireContext(),item.id.toString(),Toast.LENGTH_LONG).show()
-                navController.navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(item.id,item.title))
+                navController.navigate(
+                    HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
+                        item.id, item.title
+                    )
+                )
             }
-
-        })
-        womenAdapter = ProductAdapter()
-        jeweleryAdapter = ProductAdapter()
-        electronicsAdapter = ProductAdapter()
+        }
+        menAdapter = ProductAdapter(interaction = onItemClicked)
+        womenAdapter = ProductAdapter(interaction = onItemClicked)
+        jeweleryAdapter = ProductAdapter(interaction = onItemClicked)
+        electronicsAdapter = ProductAdapter(interaction = onItemClicked)
 
 
 
@@ -99,7 +104,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             jeweleryAdapter.isLoading = dataState.isLoading()
             electronicsAdapter.isLoading = dataState.isLoading()
 
-            if (!dataState.isLoading()){
+            if (!dataState.isLoading()) {
                 binding.collectionNews.gonView.visibility = View.GONE
                 binding.streetClothesNews.gonView.visibility = View.GONE
                 binding.fashionNews.gonView.visibility = View.GONE

@@ -49,7 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
             appBarConfiguration
         )
         navController.addOnDestinationChangedListener { _, destination, bandel ->
-            Toast.makeText(this, bandel?.getString("productTitle"), Toast.LENGTH_LONG).show()
+
             if (destination.id == R.id.productDetailFragment) {
                 binding.tvCbTitle.text = bandel?.getString("productTitle")
             }else{

@@ -17,8 +17,8 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding, Product
     viewModelClass = ProductDetailViewModel::class.java,
     isSharedViewModel = false
 ) {
-    lateinit var productImagesAdapter: ProductImagesAdapter
-    lateinit var productImagesLayoutManager: WrapContentLinearLayoutManager
+    private lateinit var productImagesAdapter: ProductImagesAdapter
+    private lateinit var productImagesLayoutManager: WrapContentLinearLayoutManager
     private val args: ProductDetailFragmentArgs by navArgs()
 
     //    private val productId = args.productId
@@ -38,9 +38,10 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding, Product
 
     override fun onInitViewModel() {
         viewModel.product.observe(viewLifecycleOwner) { productDataState ->
+            productImagesAdapter.isLoading = productDataState.isLoading()
             productDataState.getData()?.let { product ->
                 productImagesAdapter.submitList(product.images)
-                binding.product =product
+                binding.product = product
             }
         }
     }
