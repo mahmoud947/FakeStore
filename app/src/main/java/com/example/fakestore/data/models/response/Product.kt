@@ -2,17 +2,21 @@ package com.example.fakestore.data.models.response
 
 
 import androidx.annotation.Keep
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.text.DecimalFormat
 import kotlin.math.round
 import kotlin.math.roundToInt
 
 @Keep
+@Entity
 data class Product(
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
     val brand: String,
     val category: String,
     val description: String,
     val discountPercentage: Double,
-    val id: Int,
     val images: List<String>,
     val price: Int,
     val rating: Double,

@@ -4,6 +4,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -50,6 +51,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                         item.id, item.title
                     )
                 )
+            }
+
+            override fun onAddToFavoriteClick(item: Product) {
+                Toast.makeText(requireContext(),item.title,Toast.LENGTH_SHORT).show()
+                viewModel.addProductTOFavorite(item)
             }
         }
         menAdapter = ProductAdapter(interaction = onItemClicked)

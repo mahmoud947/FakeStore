@@ -1,6 +1,8 @@
 package com.example.fakestore.data.repository
 
+import androidx.lifecycle.LiveData
 import com.example.fakestore.core.data.BaseRepository
+import com.example.fakestore.data.local.ProductDao
 import com.example.fakestore.data.models.request.Credentials
 import com.example.fakestore.data.models.response.LoginResponse
 import com.example.fakestore.data.models.response.Product
@@ -11,7 +13,8 @@ import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
     private val api: FakeStoreApi,
-    private val unsplashApi: UnsplashApi
+    private val unsplashApi: UnsplashApi,
+    private val dao: ProductDao
 ) : BaseRepository() {
 
     suspend fun getProducts(): List<Product> =
@@ -29,4 +32,8 @@ class ProductRepository @Inject constructor(
         unsplashApi.getRandomPhoto(query = query).first()
 
     suspend fun login(credentials: Credentials): LoginResponse = api.login(credentials)
+
+    fun getFavoriteProducts():LiveData<List<Product>> = dao.getFavoriteProducts()
+
+    suspend fun addProductToFavorite(product: Product) = dao.addToFavorite(product)
 }

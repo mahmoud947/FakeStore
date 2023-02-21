@@ -11,6 +11,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvProduct"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -139,7 +140,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-
+                android:id="@+id/cvFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="100dp"

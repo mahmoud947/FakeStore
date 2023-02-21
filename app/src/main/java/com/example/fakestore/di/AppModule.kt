@@ -2,6 +2,7 @@ package com.example.fakestore.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.fakestore.data.local.ProductDao
 import com.example.fakestore.data.remote.FakeStoreApi
 import com.example.fakestore.data.remote.UnsplashApi
 import com.example.fakestore.data.repository.AuthRepository
@@ -22,8 +23,9 @@ object AppModule {
     @Singleton
     fun provideProductRepository(
         api: FakeStoreApi,
-        unsplashApi: UnsplashApi
-    ): ProductRepository = ProductRepository(api = api, unsplashApi)
+        unsplashApi: UnsplashApi,
+        dao: ProductDao
+    ): ProductRepository = ProductRepository(api = api, unsplashApi = unsplashApi, dao = dao)
 
     fun provideAuthRepository(
         api: FakeStoreApi,

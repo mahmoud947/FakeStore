@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.presentation.base.BaseViewModel
+import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.data.repository.ProductRepository
 import com.example.fakestore.ui.uiModel.HomeModel
 import com.example.fakestore.utils.errorHandler
@@ -37,9 +38,6 @@ class HomeViewModel @Inject constructor(
     private fun getProductOFCategory() {
         _categoryMap.postValue(DataState.Loading)
         viewModelScope.launch(Dispatchers.IO + errorHandler(_categoryMap)) {
-            //TODO:Remove delay
-             delay(1000)
-
             val map = mutableMapOf<String, HomeModel>()
             for (category in homeCategoryList) {
                 val randomImage = repository.getRandomModelImage(category).urls.regular
@@ -51,6 +49,13 @@ class HomeViewModel @Inject constructor(
 
             }
             _categoryMap.postValue(DataState.Success(map))
+        }
+    }
+
+
+    fun addProductTOFavorite(product: Product){
+        viewModelScope.launch (Dispatchers.IO+ errorHandler()){
+            repository.addProductToFavorite(product)
         }
     }
 
