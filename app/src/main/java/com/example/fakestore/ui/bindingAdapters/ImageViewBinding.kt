@@ -7,13 +7,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 
 
-    @BindingAdapter("setImageUrl")
-    fun setImageUrl(imageView: ImageView, url: String?) {
-        Glide.with(imageView.context)
-            .load(url)
-            .format(DecodeFormat.PREFER_RGB_565)
-            .into(imageView)
-    }
+@BindingAdapter("setImageUrl")
+fun setImageUrl(imageView: ImageView, url: String?) {
+    Glide.with(imageView.context)
+        .load(url)
+        .format(DecodeFormat.PREFER_RGB_565)
+        .into(imageView)
+}
 
 
 @BindingAdapter("setImageSrc")
@@ -22,5 +22,5 @@ fun setImageUrl(
     @DrawableRes
     src: Int
 ) {
-   imageView.setImageResource(src)
+    imageView.setImageResource(src)
 }

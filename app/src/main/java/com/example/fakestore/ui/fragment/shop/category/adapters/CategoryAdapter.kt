@@ -17,7 +17,7 @@ private const val PRODUCT_TYPE = 1
 class CategoryAdapter(private val interaction: Interaction? = null) :
     ListAdapter<Product, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
-    var isLoading = false
+    var isLoading = true
 
     companion object {
 
@@ -28,7 +28,6 @@ class CategoryAdapter(private val interaction: Interaction? = null) :
 
             override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean =
                 oldItem == newItem
-
         }
     }
 

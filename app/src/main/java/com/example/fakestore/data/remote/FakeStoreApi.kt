@@ -1,12 +1,19 @@
 package com.example.fakestore.data.remote
 
+import com.example.fakestore.data.models.request.Credentials
+import com.example.fakestore.data.models.response.LoginResponse
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.data.models.response.ProductsResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.example.fakestore.data.remote.utils.Authenticated
+import retrofit2.http.*
 
 interface FakeStoreApi {
+
+    @POST("auth/login")
+    @Authenticated
+    suspend fun login(
+        @Body credentials: Credentials
+    ): LoginResponse
 
     @GET("products")
     suspend fun getProducts(): ProductsResponse
@@ -26,7 +33,6 @@ interface FakeStoreApi {
 
     @GET("products/categories")
     suspend fun getCategories(): List<String>
-
 
     @GET("products/{product_id}")
     suspend fun getProduct(

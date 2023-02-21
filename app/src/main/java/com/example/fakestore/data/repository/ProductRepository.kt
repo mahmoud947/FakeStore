@@ -1,6 +1,8 @@
 package com.example.fakestore.data.repository
 
 import com.example.fakestore.core.data.BaseRepository
+import com.example.fakestore.data.models.request.Credentials
+import com.example.fakestore.data.models.response.LoginResponse
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.data.models.response.RandomPhotoResponseItem
 import com.example.fakestore.data.remote.FakeStoreApi
@@ -25,4 +27,6 @@ class ProductRepository @Inject constructor(
 
     suspend fun getRandomModelImage(query: String): RandomPhotoResponseItem =
         unsplashApi.getRandomPhoto(query = query).first()
+
+    suspend fun login(credentials: Credentials): LoginResponse = api.login(credentials)
 }

@@ -2,6 +2,7 @@ package com.example.fakestore.di
 
 import com.example.fakestore.data.remote.FakeStoreApi
 import com.example.fakestore.data.remote.UnsplashApi
+import com.example.fakestore.data.remote.utils.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,10 +21,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideClient(): OkHttpClient {
+    fun provideClient(authInterceptor: AuthInterceptor): OkHttpClient {
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(logger)
             .readTimeout(20, TimeUnit.SECONDS)
             .writeTimeout(20, TimeUnit.SECONDS)

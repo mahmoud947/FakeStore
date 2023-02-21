@@ -16,7 +16,7 @@ private const val PRODUCT_TYPE = 1
 class ProductAdapter(private val interaction: Interaction? = null) :
     ListAdapter<Product, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
-    var isLoading = false
+    var isLoading = true
     companion object {
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Product>() {
