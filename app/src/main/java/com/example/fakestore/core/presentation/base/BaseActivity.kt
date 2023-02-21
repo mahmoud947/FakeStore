@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutId: Int,
@@ -32,6 +33,10 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel>(
         onInitViewModel()
 
     }
+    fun showSnackBar(message:String){
+        Snackbar.make(binding.root,message,Snackbar.LENGTH_SHORT).show()
+    }
+
 
 
     override fun onPause() {

@@ -117,8 +117,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                 val jeweleryModel = mapOfStringAndMapOfStringListOfProducts["womens-jewellery"]
                 val electronicsModel = mapOfStringAndMapOfStringListOfProducts["laptops"]
 
-
-
                 binding.collectionNews.news =
                     menModel?.url?.let { News(title = "New Collection", image = it) }
                 binding.streetClothesNews.news =

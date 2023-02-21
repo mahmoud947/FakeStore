@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.core.presentation.base.BaseViewModel
+import com.example.fakestore.data.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -12,7 +13,9 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class SplashViewModel @Inject constructor() : BaseViewModel() {
+class SplashViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : BaseViewModel() {
 
     private val _navigateToMain = MutableLiveData<AuthState>()
     val navigateToMain: LiveData<AuthState> get() = _navigateToMain
@@ -24,7 +27,12 @@ class SplashViewModel @Inject constructor() : BaseViewModel() {
     private fun navigate() {
         viewModelScope.launch {
             delay(1000)
-            _navigateToMain.value = AuthState.AUTHENTICATED
+            if (authRepository.getToken()!=null){
+                _navigateToMain.value = AuthState.AUTHENTICATED
+            }else{
+                _navigateToMain.value = AuthState.UNAUTHENTICATED
+            }
+
         }
     }
 

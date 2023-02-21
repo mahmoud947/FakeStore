@@ -17,10 +17,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>(
     isSharedViewModel = false
 ) {
     override fun onInitDataBinding() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onInitViewModel() {
-        TODO("Not yet implemented")
+
     }
 }

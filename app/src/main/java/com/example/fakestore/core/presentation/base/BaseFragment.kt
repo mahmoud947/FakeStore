@@ -17,14 +17,14 @@ import androidx.navigation.NavBackStackEntry
 import com.example.fakestore.R
 import com.example.fakestore.utils.dialogs.ErrorDialog
 import com.example.fakestore.utils.dialogs.LoadingDialog
-
+import com.google.android.material.snackbar.Snackbar
 
 
 abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutId: Int,
     private val viewModelClass: Class<VM>,
-    private val isSharedViewModel:Boolean,
+    private val isSharedViewModel: Boolean,
 ) : Fragment() {
     lateinit var viewModel: VM
     lateinit var binding: DB
@@ -62,6 +62,9 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(
         return binding.root
     }
 
+    fun showSnackBar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

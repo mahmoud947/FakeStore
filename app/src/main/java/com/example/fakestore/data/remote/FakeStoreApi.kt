@@ -10,7 +10,6 @@ import retrofit2.http.*
 interface FakeStoreApi {
 
     @POST("auth/login")
-    @Authenticated
     suspend fun login(
         @Body credentials: Credentials
     ): LoginResponse

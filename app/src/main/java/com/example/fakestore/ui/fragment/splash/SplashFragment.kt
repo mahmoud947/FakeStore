@@ -25,14 +25,12 @@ class SplashFragment :
         viewModel.navigateToMain.observe(viewLifecycleOwner) { authState ->
             when (authState) {
                 AuthState.AUTHENTICATED -> {
-//                    val intent = Intent(requireActivity(), MainActivity::class.java)
-//                    startActivity(intent)
-//                    requireActivity().finish()
-
-                    findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
                 }
                 AuthState.UNAUTHENTICATED -> {
-
+                    findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
                 }
             }
         }

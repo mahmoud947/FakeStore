@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.fakestore.data.remote.FakeStoreApi
 import com.example.fakestore.data.remote.UnsplashApi
+import com.example.fakestore.data.repository.AuthRepository
 import com.example.fakestore.data.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
@@ -22,7 +23,13 @@ object AppModule {
     fun provideProductRepository(
         api: FakeStoreApi,
         unsplashApi: UnsplashApi
-    ): ProductRepository = ProductRepository(api = api,unsplashApi)
+    ): ProductRepository = ProductRepository(api = api, unsplashApi)
+
+    fun provideAuthRepository(
+        api: FakeStoreApi,
+        @Named("Auth")
+        prefs: SharedPreferences
+    ): AuthRepository = AuthRepository(api = api, prefs = prefs)
 
     @Singleton
     @Provides

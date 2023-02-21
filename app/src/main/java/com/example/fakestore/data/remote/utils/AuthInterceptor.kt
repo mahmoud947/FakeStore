@@ -26,7 +26,7 @@ class AuthInterceptor @Inject constructor(
             chain.proceed(
                 chain.request()
                     .newBuilder().also { builder: Request.Builder ->
-                        val token = prefs.getString("token", null)
+                        val token = prefs.getString(TOKEN_KEY, null)
                         builder.addHeader("Authorization", "Bearer $token")
                     }
                     .build()
