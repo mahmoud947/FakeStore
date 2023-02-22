@@ -30,6 +30,12 @@ class CategoryViewModel @Inject constructor(
 
     }
 
+    fun addProductTOFavorite(product: Product){
+        viewModelScope.launch (Dispatchers.IO+ errorHandler()){
+            repository.addProductToFavorite(product)
+        }
+    }
+
     private fun <T> handleData(
         filterCriteria: suspend () -> T,
         data: MutableLiveData<DataState<T>>

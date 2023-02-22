@@ -23,9 +23,7 @@ class LoginViewModel @Inject constructor(
     fun login(username: String, password: String) {
         _navigateToHome.value = DataState.Loading
         viewModelScope.launch(Dispatchers.IO + loginErrorHandler(_navigateToHome)) {
-            val response =
-                authRepository.login(Credentials(username = username, password = password))
-            saveToken(response.token)
+            authRepository.login(Credentials(username = username, password = password))
             if (getToken() != null) {
                 _navigateToHome.postValue(DataState.Success(true))
             }
@@ -49,6 +47,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun saveToken(token: String) = authRepository.saveToken(token)
+
     private fun getToken(): String? = authRepository.getToken()
 }

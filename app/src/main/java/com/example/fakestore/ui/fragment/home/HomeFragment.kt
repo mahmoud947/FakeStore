@@ -5,17 +5,24 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fakestore.R
 import com.example.fakestore.core.data.getData
 import com.example.fakestore.core.presentation.base.BaseFragment
 import com.example.fakestore.data.models.response.Product
 import com.example.fakestore.databinding.FragmentHomeBinding
+import com.example.fakestore.ui.fragment.home.adapters.HeaderFooterAdapter
+import com.example.fakestore.ui.fragment.home.adapters.PagingProductAdapter
 import com.example.fakestore.ui.fragment.home.adapters.ProductAdapter
 import com.example.fakestore.ui.uiModel.News
+import com.example.fakestore.utils.recyclerview.AutoFitGridLayoutManager
+import com.example.fakestore.utils.recyclerview.WrapAutoFitGridlayoutManager
 import com.example.fakestore.utils.recyclerview.WrapContentLinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,15 +36,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     lateinit var electronicsAdapter: ProductAdapter
     lateinit var womenAdapter: ProductAdapter
     lateinit var jeweleryAdapter: ProductAdapter
+    lateinit var pagingProductAdapter: PagingProductAdapter
 
     private lateinit var manlayoutManager: LinearLayoutManager
     private lateinit var electronicslayoutManager: LinearLayoutManager
     private lateinit var womenlayoutManager: LinearLayoutManager
     private lateinit var jewelerylayoutManager: LinearLayoutManager
+    private lateinit var pagingProductLayoutManager: WrapAutoFitGridlayoutManager
 
     private lateinit var menuHost: MenuHost
     private lateinit var navController: NavController
-
+    private lateinit var dialog: AlertDialog
 
     override fun onInitDataBinding() {
         navController = findNavController()
@@ -54,7 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             }
 
             override fun onAddToFavoriteClick(item: Product) {
-                Toast.makeText(requireContext(),item.title,Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
                 viewModel.addProductTOFavorite(item)
             }
         }
@@ -62,7 +71,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         womenAdapter = ProductAdapter(interaction = onItemClicked)
         jeweleryAdapter = ProductAdapter(interaction = onItemClicked)
         electronicsAdapter = ProductAdapter(interaction = onItemClicked)
+        pagingProductAdapter =
+            PagingProductAdapter(onItemClicked = object : PagingProductAdapter.OnItemClicked {
+                override fun onItemClicked(product: Product, oldPosition: Int) {
+                    findNavController().navigate(
+                        HomeFragmentDirections.toDetailScreen(
+                            product.id,
+                            product.title
+                        )
+                    )
+                }
+            })
+        pagingProductLayoutManager = WrapAutoFitGridlayoutManager(requireContext(), 400)
 
+        pagingProductLayoutManager.spanSizeLookup =  object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == pagingProductAdapter.itemCount && pagingProductAdapter.itemCount > 0) {
+                    pagingProductLayoutManager.spanCount
+                } else {
+                    1
+                }
+            }
+        }
 
 
 
@@ -74,6 +104,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         jewelerylayoutManager =
             WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+
+        pagingProductAdapter.addLoadStateListener {
+            when (it.append) {
+                is LoadState.Error -> errorDialog.startErrorDialog()
+                else -> {
+                    errorDialog.dismissDialog()
+                }
+            }
+            when (it.refresh) {
+                is LoadState.Error -> errorDialog.startErrorDialog()
+                else -> {
+                    errorDialog.dismissDialog()
+                }
+            }
+        }
 
 //        binding.collectionNews.news = News(title = "New Collection", image = R.drawable.collection)
 //        binding.streetClothesNews.news =
@@ -97,6 +143,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         binding.rvWomen.apply {
             layoutManager = womenlayoutManager
             adapter = womenAdapter
+        }
+        binding.rvPagingProducts.apply {
+            setHasFixedSize(true)
+            layoutManager = pagingProductLayoutManager
+            adapter = pagingProductAdapter.withLoadStateFooter(HeaderFooterAdapter(object :HeaderFooterAdapter.OnRetryClicked{
+                override fun onRetryClicked() {
+                    pagingProductAdapter.retry()
+                }
+
+            }))
         }
 
     }
@@ -139,16 +195,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             }
         }
 
+        viewModel.pagingProducts.observe(viewLifecycleOwner){
+            pagingProductAdapter.submitData(this.lifecycle,it)
+        }
+
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.toolbar_search_icon -> navController.navigate(HomeFragmentDirections.actionHomeToSearch())
+//            R.id.toolbar_search_icon->{
+//
+//                val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity(), R.style.WrapContentDialog)
+//                val view: View? = requireActivity().layoutInflater.inflate(R.layout.test_dialog, null)
+//                builder.setView(view)
+//                builder.setCancelable(false)
+//                dialog = builder.create()
+//
+//                dialog.show()
+//            }
+
         }
 
         return true
     }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

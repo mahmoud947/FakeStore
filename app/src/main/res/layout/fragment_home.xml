@@ -9,6 +9,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         tools:context=".ui.fragment.home.HomeFragment">
 
         <LinearLayout
@@ -16,6 +17,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
+
             <include
                 android:id="@+id/streetClothesNews"
                 layout="@layout/item_news" />
@@ -45,8 +47,6 @@
                     tools:layout_height="300dp"
                     tools:listitem="@layout/item_product" />
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -136,6 +136,15 @@
             <include
                 android:id="@+id/collectionNews"
                 layout="@layout/item_news" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_paging_products"
+                android:layout_width="match_parent"
+                android:nestedScrollingEnabled="true"
+                android:layout_height="1000dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                tools:listitem="@layout/item_product_home_grid" />
 
         </LinearLayout>
 

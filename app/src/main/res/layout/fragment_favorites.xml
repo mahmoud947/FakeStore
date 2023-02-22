@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+    <variable
+        name="viewModel"
+        type="com.example.fakestore.ui.fragment.favorites.FavoriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,5 +22,37 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_empty_favorite_products"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            goneIfTrue="@{!viewModel.favoriteProducts.empty}"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/iv_empty_favorite_products"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                app:srcCompat="@drawable/empty" />
+
+            <TextView
+                android:id="@+id/tv_empty_favorite_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aguafina_script"
+                android:text="Empty favorite Products"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                android:textSize="41sp" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

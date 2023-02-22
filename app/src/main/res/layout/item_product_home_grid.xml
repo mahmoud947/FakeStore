@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.example.fakestore.data.models.response.Product" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="8dp"
+        app:cardCornerRadius="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                setImageUrl="@{product.thumbnail}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:id="@+id/ll_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/customRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:rating="@{product.ratingAsFloat}"
+                    tools:rating="4" />
+
+                <TextView
+                    android:id="@+id/tv_count"
+                    ratingCount="@{product.ratingAsFloat}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    tools:text="(0)" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingStart="4dp"
+                android:text="@{product.title}"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/ll_rating"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_rating"
+                tools:text="Mango Boy" />
+
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:paddingStart="4dp"
+                android:text="@{product.brand}"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                app:layout_constraintHorizontal_bias="0.01"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                tools:text="T-Shirt Sailing" />
+
+            <LinearLayout
+                android:id="@+id/tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/tv_category"
+                app:layout_constraintStart_toStartOf="@+id/tv_category"
+                app:layout_constraintTop_toBottomOf="@+id/tv_category">
+
+                <TextView
+                    oldPrice="@{@string/price(product.price)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    tools:text="10$" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="@{@string/newPrice(product.getPriceAfterDiscount)}"
+                    android:textAlignment="center"
+                    android:textColor="@color/red"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="10$" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_title"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintVertical_bias="0.90999997">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/favorite_border_24"
+                    app:tint="@color/gray" />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -20,6 +20,7 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_product"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginEnd="10dp"
@@ -153,6 +154,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_hart"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_alignParentEnd="true"

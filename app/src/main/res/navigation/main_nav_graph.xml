@@ -54,8 +54,12 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.fakestore.ui.fragment.favorites.FavoritesFragment"
-        android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.example.fakestore.ui.fragment.productDetail.ProductDetailFragment"

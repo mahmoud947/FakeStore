@@ -2,7 +2,9 @@ package com.example.fakestore.ui.bindingAdapters
 
 import android.view.View
 import android.view.animation.Animation
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.paging.LoadState
 
 
 @BindingAdapter("goneIfTrue")
@@ -17,4 +19,11 @@ fun setAnimation(view: View, anim: Animation) {
     }
 }
 
-
+@BindingAdapter("setLoadingState")
+fun bindLoadingState(view: View,loadState: LoadState){
+    view.isVisible = loadState is LoadState.Loading
+}
+@BindingAdapter("setErrorState")
+fun bindErrorState(view: View,loadState: LoadState){
+    view.isVisible = loadState is LoadState.Error
+}

@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class AutoFitGridLayoutManager(context: Context?, columnWidth: Int) :
+open class AutoFitGridLayoutManager(context: Context?, columnWidth: Int) :
     GridLayoutManager(context, 1) {
     private var columnWidth = 0
     private var columnWidthChanged = true

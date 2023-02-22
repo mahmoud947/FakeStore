@@ -35,7 +35,11 @@ class ShopViewModel @Inject constructor(
         }, _categories)
     }
 
-
+    fun addProductTOFavorite(product: Product){
+        viewModelScope.launch (Dispatchers.IO+ errorHandler()){
+            repository.addProductToFavorite(product)
+        }
+    }
 
 
     fun getProducts(category: String) {
@@ -44,6 +48,8 @@ class ShopViewModel @Inject constructor(
         }, data = _products)
 
     }
+
+
 
     private fun <T> handleData(
         filterCriteria: suspend () -> T,

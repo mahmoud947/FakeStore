@@ -36,6 +36,10 @@ class CategoryFragment(
                 )
             }
 
+            override fun onAddToFavoriteClicked(item: Product) {
+                viewModel.addProductTOFavorite(item)
+            }
+
         })
         productLayoutManger =
             WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

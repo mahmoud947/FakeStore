@@ -3,7 +3,10 @@ package com.example.fakestore.ui.fragment.home
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.presentation.base.BaseViewModel
 import com.example.fakestore.data.models.response.Product
@@ -25,6 +28,10 @@ class HomeViewModel @Inject constructor(
 
     private val _categoryMap = MutableLiveData<DataState<Map<String, HomeModel>>>()
     val categoryMap: LiveData<DataState<Map<String, HomeModel>>> get() = _categoryMap
+    
+    private val _pagingProducts = MutableLiveData<PagingData<Product>>()
+    val pagingProducts: LiveData<PagingData<Product>> get() = _pagingProducts
+
 
 
     private val homeCategoryList =
@@ -32,6 +39,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         getProductOFCategory()
+        getPagingProducts()
     }
 
 
@@ -52,6 +60,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun getPagingProducts() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getPagingProducts().asFlow().cachedIn(viewModelScope)
+                .collect {
+                    _pagingProducts.postValue(it)
+                }
+        }
+    }
 
     fun addProductTOFavorite(product: Product){
         viewModelScope.launch (Dispatchers.IO+ errorHandler()){

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:elevation="8dp"
+            app:cardCornerRadius="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/imageViewShimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_130sdp"
+                    android:background="@color/gray"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/ll_rating"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageViewShimmer"
+                    app:layout_constraintStart_toStartOf="@+id/imageViewShimmer"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewShimmer">
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_title_shimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/dark_gray"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/ll_rating"
+                    app:layout_constraintStart_toStartOf="@+id/ll_rating"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_rating" />
+
+                <TextView
+                    android:id="@+id/tv_category_shimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="8dp"
+
+                    android:background="@color/dark_gray"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_title_shimmer"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title_shimmer"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_shimmer" />
+
+                <LinearLayout
+                    android:id="@+id/tv_price_shimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_category_shimmer"
+                    app:layout_constraintStart_toStartOf="@+id/tv_category_shimmer"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_category_shimmer">
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/dark_gray"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ll_rating"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageViewShimmer"
+                    app:layout_constraintVertical_bias="0.90999997">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/favorite_border_24"
+                        app:tint="@color/black" />
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</layout>

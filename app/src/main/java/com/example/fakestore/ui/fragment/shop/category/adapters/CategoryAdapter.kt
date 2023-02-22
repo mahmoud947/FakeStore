@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fakestore.data.models.response.Product
-import com.example.fakestore.databinding.ItemProductBinding
 import com.example.fakestore.databinding.ItemProductInCategoryBinding
 import com.example.fakestore.databinding.ItemProductInCategoryShimmerBinding
-import com.example.fakestore.databinding.ItemProductShimmerBinding
 
 private const val SHIMMER_TYPE = 0
 private const val PRODUCT_TYPE = 1
@@ -73,8 +71,11 @@ class CategoryAdapter(private val interaction: Interaction? = null) :
         fun onBind(item: Product) {
             binding.product = item
             binding.executePendingBindings()
-            binding.root.setOnClickListener {
+            binding.cvProduct.setOnClickListener {
                 interaction?.onItemSelected(bindingAdapterPosition, item)
+            }
+            binding.cvHart.setOnClickListener {
+                interaction?.onAddToFavoriteClicked(item)
             }
         }
 
@@ -121,5 +122,6 @@ class CategoryAdapter(private val interaction: Interaction? = null) :
 
     interface Interaction {
         fun onItemSelected(position: Int, item: Product)
+        fun onAddToFavoriteClicked(item: Product)
     }
 }

@@ -39,5 +39,11 @@ interface FakeStoreApi {
         id: Int
     ): Product
 
+    @GET("products")
+    suspend fun getAllProducts(
+        @Query("limit") limit: Int = 10,
+        @Query("skip") skip: Int
+    ): ProductsResponse
+
 
 }
