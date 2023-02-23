@@ -21,7 +21,6 @@ import com.example.fakestore.ui.fragment.home.adapters.HeaderFooterAdapter
 import com.example.fakestore.ui.fragment.home.adapters.PagingProductAdapter
 import com.example.fakestore.ui.fragment.home.adapters.ProductAdapter
 import com.example.fakestore.ui.uiModel.News
-import com.example.fakestore.utils.recyclerview.AutoFitGridLayoutManager
 import com.example.fakestore.utils.recyclerview.WrapAutoFitGridlayoutManager
 import com.example.fakestore.utils.recyclerview.WrapContentLinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,15 +75,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                 override fun onItemClicked(product: Product, oldPosition: Int) {
                     findNavController().navigate(
                         HomeFragmentDirections.toDetailScreen(
-                            product.id,
-                            product.title
+                            product.id, product.title
                         )
                     )
                 }
             })
         pagingProductLayoutManager = WrapAutoFitGridlayoutManager(requireContext(), 400)
 
-        pagingProductLayoutManager.spanSizeLookup =  object : GridLayoutManager.SpanSizeLookup() {
+        pagingProductLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (position == pagingProductAdapter.itemCount && pagingProductAdapter.itemCount > 0) {
                     pagingProductLayoutManager.spanCount
@@ -147,7 +145,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         binding.rvPagingProducts.apply {
             setHasFixedSize(true)
             layoutManager = pagingProductLayoutManager
-            adapter = pagingProductAdapter.withLoadStateFooter(HeaderFooterAdapter(object :HeaderFooterAdapter.OnRetryClicked{
+            adapter = pagingProductAdapter.withLoadStateFooter(HeaderFooterAdapter(object :
+                HeaderFooterAdapter.OnRetryClicked {
                 override fun onRetryClicked() {
                     pagingProductAdapter.retry()
                 }
@@ -195,11 +194,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             }
         }
 
-        viewModel.pagingProducts.observe(viewLifecycleOwner){
-            pagingProductAdapter.submitData(this.lifecycle,it)
+        viewModel.pagingProducts.observe(viewLifecycleOwner) {
+            pagingProductAdapter.submitData(this.lifecycle, it)
         }
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -222,7 +219,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_toolbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -243,6 +239,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 //        })
 
     }
-
 
 }

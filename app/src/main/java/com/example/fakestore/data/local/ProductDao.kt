@@ -14,8 +14,11 @@ interface ProductDao {
     suspend fun addToFavorite(product: Product)
 
     @Query("SELECT * FROM product")
-     fun getFavoriteProducts(): LiveData<List<Product>>
+    fun getFavoriteProducts(): LiveData<List<Product>>
+
+    @Query("SELECT * FROM Product WHERE id = :id")
+    suspend fun getFavoriteProduct(id: Int):Product
 
     @Query("DELETE FROM product WHERE id = :id")
-     fun deleteFromFavorite(id: Int)
+    suspend fun deleteFromFavorite(id: Int)
 }

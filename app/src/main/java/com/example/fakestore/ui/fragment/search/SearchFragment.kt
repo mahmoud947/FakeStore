@@ -37,7 +37,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(
                     )
                 )
             }
-
         })
         searchLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -64,7 +63,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(
                 searchAdapter.submitList(it)
             }
         }
-
     }
 
 

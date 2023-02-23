@@ -143,7 +143,6 @@
                 android:layout_width="match_parent"
                 android:nestedScrollingEnabled="true"
                 android:layout_height="1000dp"
-                android:layout_marginTop="@dimen/_20sdp"
                 tools:listitem="@layout/item_product_home_grid" />
 
         </LinearLayout>

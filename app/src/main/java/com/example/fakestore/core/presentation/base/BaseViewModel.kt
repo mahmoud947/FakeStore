@@ -16,7 +16,17 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
+    }
 
-
+   open fun <T> handleData(
+        filterCriteria: suspend () -> T,
+        data: MutableLiveData<DataState<T>>
+    ) {
+        data.value = DataState.Loading
+        viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
+            delay(1500)
+            val result = filterCriteria.invoke()
+            data.postValue(DataState.Success(result))
+        }
     }
 }

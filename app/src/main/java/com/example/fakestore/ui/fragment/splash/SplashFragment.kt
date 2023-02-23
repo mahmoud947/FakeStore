@@ -23,16 +23,19 @@ class SplashFragment :
 
     override fun onInitViewModel() {
         viewModel.navigateToMain.observe(viewLifecycleOwner) { authState ->
-            when (authState) {
-                AuthState.AUTHENTICATED -> {
-                    val intent = Intent(requireActivity(), MainActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
-                }
-                AuthState.UNAUTHENTICATED -> {
-                    findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+            authState?.let {
+                when (it) {
+                    AuthState.AUTHENTICATED -> {
+                        val intent = Intent(requireActivity(), MainActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
+                    AuthState.UNAUTHENTICATED -> {
+                        findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+                    }
                 }
             }
+
         }
     }
 

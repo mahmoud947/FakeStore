@@ -36,17 +36,6 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    private fun <T> handleData(
-        filterCriteria: suspend () -> T,
-        data: MutableLiveData<DataState<T>>
-    ) {
-        data.value = DataState.Loading
-        viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
-            val result = filterCriteria.invoke()
-            data.postValue(DataState.Success(result))
-        }
-    }
-
     override fun onCleared() {
         super.onCleared()
         Log.d(TAG, "onCleared:Category ViewModel Cleared")

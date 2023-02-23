@@ -23,7 +23,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoriteViewMod
     lateinit var favoriteProductAdapter: FavoritesProductAdapter
 
     override fun onInitDataBinding() {
-        setHasOptionsMenu(true)
         favoriteLayoutManager =
             WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         favoriteProductAdapter =
@@ -52,13 +51,5 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoriteViewMod
         }
     }
 
-
-
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.favorite_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-
-    }
 
 }

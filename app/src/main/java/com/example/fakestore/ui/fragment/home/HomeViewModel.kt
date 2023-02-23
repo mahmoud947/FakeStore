@@ -15,7 +15,7 @@ import com.example.fakestore.ui.uiModel.HomeModel
 import com.example.fakestore.utils.errorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,10 +28,9 @@ class HomeViewModel @Inject constructor(
 
     private val _categoryMap = MutableLiveData<DataState<Map<String, HomeModel>>>()
     val categoryMap: LiveData<DataState<Map<String, HomeModel>>> get() = _categoryMap
-    
+
     private val _pagingProducts = MutableLiveData<PagingData<Product>>()
     val pagingProducts: LiveData<PagingData<Product>> get() = _pagingProducts
-
 
 
     private val homeCategoryList =
@@ -46,12 +45,18 @@ class HomeViewModel @Inject constructor(
     private fun getProductOFCategory() {
         _categoryMap.postValue(DataState.Loading)
         viewModelScope.launch(Dispatchers.IO + errorHandler(_categoryMap)) {
+
             val map = mutableMapOf<String, HomeModel>()
             for (category in homeCategoryList) {
                 val randomImage = repository.getRandomModelImage(category).urls.regular
-                val products = repository.getProductsInCategory(category)
+                val products = repository.getProductsInCategory(category).map {
+                    val favoriteProduct = async { repository.getFavoriteProduct(it.id) }
+                    val product = it.copy(isFavorite = favoriteProduct.await() == it)
+                    product
+                }
+
                 Log.e(TAG, "nnn: ${products.size}")
-               // val homeModel: HomeModel = HomeModel(products = products, url = products[(0 ..homeCategoryList.size).random()].thumbnail)
+                // val homeModel: HomeModel = HomeModel(products = products, url = products[(0 ..homeCategoryList.size).random()].thumbnail)
                 val homeModel: HomeModel = HomeModel(products = products, url = randomImage)
                 map[category] = homeModel
 
@@ -69,22 +74,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun addProductTOFavorite(product: Product){
-        viewModelScope.launch (Dispatchers.IO+ errorHandler()){
+    fun addProductTOFavorite(product: Product) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler()) {
             repository.addProductToFavorite(product)
         }
     }
 
 
-    private fun <T> handleData(
-        filterCriteria: suspend () -> T,
-        data: MutableLiveData<DataState<T>>
-    ) {
-        data.value = DataState.Loading
-        viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
-            delay(1500)
-            val result = filterCriteria.invoke()
-            data.postValue(DataState.Success(result))
-        }
-    }
 }

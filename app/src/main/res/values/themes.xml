@@ -61,4 +61,9 @@
     </style>
     <style name="Theme.Fakestore.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.Fakestore.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="checkedIconEnabled">false</item>
+        <item name="checkedIcon">@null</item>
+    </style>
 </resources>

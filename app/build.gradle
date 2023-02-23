@@ -116,6 +116,10 @@ dependencies {
 
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.4"
 
+    //image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
 
 
 

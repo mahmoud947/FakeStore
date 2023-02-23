@@ -91,8 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:maxLines="1"
                 android:layout_marginTop="8dp"
+                android:maxLines="1"
                 android:paddingStart="4dp"
                 android:text="@{product.brand}"
                 android:textAlignment="textStart"
@@ -140,7 +140,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvFavorite"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="100dp"
@@ -151,12 +151,17 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView"
                 app:layout_constraintVertical_bias="0.90999997">
 
-                <ImageView
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/cvFavorite"
+                    style="@style/ChipCustomStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/favorite_border_24"
-                    app:tint="@color/gray" />
+                    android:checkable="true"
+                    android:checked="@{product.favorite}"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipEndPadding="-7dp"
+                    app:chipIcon="@drawable/favorite"
+                    app:rippleColor="@color/white" />
             </androidx.cardview.widget.CardView>
 
 

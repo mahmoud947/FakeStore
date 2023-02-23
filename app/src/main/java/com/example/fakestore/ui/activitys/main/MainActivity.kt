@@ -1,6 +1,7 @@
 package com.example.fakestore.ui.activitys.main
 
 import android.graphics.Color
+import android.view.View
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -52,8 +53,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
 
             if (destination.id == R.id.productDetailFragment) {
                 binding.tvCbTitle.text = bandel?.getString("productTitle")
+                binding.llProfileSection.visibility = View.GONE
+                binding.tvCbTitle.visibility = View.VISIBLE
+
+            }else if (destination.id == R.id.profileFragment){
+                binding.llProfileSection.visibility = View.VISIBLE
+                binding.tvCbTitle.visibility = View.GONE
+               // binding.tvCbTitle.text = destination.label
             }else{
                 binding.tvCbTitle.text = destination.label
+                binding.llProfileSection.visibility = View.GONE
+                binding.tvCbTitle.visibility = View.VISIBLE
+
             }
 
         }

@@ -36,15 +36,4 @@ class MainViewModel @Inject constructor(
         )
     }
 
-   private fun <T> handleData(
-        filterCriteria: suspend () -> T,
-        data: MutableLiveData<DataState<T>>
-    ) {
-        data.value = DataState.Loading
-        viewModelScope.launch(Dispatchers.IO + errorHandler(data)) {
-            delay(1500)
-            val result = filterCriteria.invoke()
-            data.postValue(DataState.Success(result))
-        }
-    }
 }

@@ -37,7 +37,6 @@ class PagingProductAdapter(
 
                 override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean =
                     oldItem == newItem
-
             }
     }
 

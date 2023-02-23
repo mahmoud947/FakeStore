@@ -37,7 +37,9 @@ class ProductRepository @Inject constructor(
     suspend fun getProductsInCategory(category: String): List<Product> =
         api.getProductsInCategory(category).products
 
-    suspend fun getProducts(query: String): List<Product> = api.productSearch(query).products
+    suspend fun getProducts(query: String): List<Product>{
+       return api.productSearch(query).products
+    }
 
     suspend fun getCategories(): List<String> = api.getCategories()
 
@@ -49,4 +51,6 @@ class ProductRepository @Inject constructor(
     fun getFavoriteProducts(): LiveData<List<Product>> = dao.getFavoriteProducts()
 
     suspend fun addProductToFavorite(product: Product) = dao.addToFavorite(product)
+
+    suspend fun getFavoriteProduct(id: Int):Product = dao.getFavoriteProduct(id)
 }
