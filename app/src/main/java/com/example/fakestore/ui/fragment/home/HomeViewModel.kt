@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
 
     private val _pagingProducts = MutableLiveData<PagingData<Product>>()
     val pagingProducts: LiveData<PagingData<Product>> get() = _pagingProducts
-
+    private val map = mutableMapOf<String, HomeModel>()
 
     private val homeCategoryList =
         listOf("mens-shirts", "laptops", "womens-jewellery", "womens-dresses")
@@ -46,7 +46,6 @@ class HomeViewModel @Inject constructor(
         _categoryMap.postValue(DataState.Loading)
         viewModelScope.launch(Dispatchers.IO + errorHandler(_categoryMap)) {
 
-            val map = mutableMapOf<String, HomeModel>()
             for (category in homeCategoryList) {
                 val randomImage = repository.getRandomModelImage(category).urls.regular
                 val products = repository.getProductsInCategory(category).map {
@@ -65,6 +64,20 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun updateFavoriteProduct(product: Product) {
+        if (product.isFavorite) {
+            map[product.category]?.products?.get(map[product.category]?.products!!.indexOf(product))?.isFavorite =
+                !product.isFavorite
+            removeProductFormFavorite(product.id)
+            _categoryMap.postValue(DataState.Success(map))
+        } else {
+            map[product.category]?.products?.get(map[product.category]?.products!!.indexOf(product))?.isFavorite =
+                !product.isFavorite
+            _categoryMap.postValue(DataState.Success(map))
+        }
+
+    }
+
     private fun getPagingProducts() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getPagingProducts().asFlow().cachedIn(viewModelScope)
@@ -77,6 +90,12 @@ class HomeViewModel @Inject constructor(
     fun addProductTOFavorite(product: Product) {
         viewModelScope.launch(Dispatchers.IO + errorHandler()) {
             repository.addProductToFavorite(product)
+        }
+    }
+
+    private fun removeProductFormFavorite(id:Int) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler()) {
+            repository.removeProductFromFavorite(id)
         }
     }
 

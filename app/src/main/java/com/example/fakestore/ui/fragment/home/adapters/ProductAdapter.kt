@@ -92,7 +92,6 @@ class ProductAdapter(private val interaction: Interaction? = null) :
                 return ProductViewHolder(bind, interaction = interaction)
             }
         }
-
     }
 
 
