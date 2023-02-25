@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+    <variable
+        name="viewModel"
+        type="com.example.fakestore.ui.fragment.favorites.FavoriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +27,7 @@
             android:id="@+id/ll_empty_favorite_products"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            goneIfTrue="@{!viewModel.favoriteProducts.empty}"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

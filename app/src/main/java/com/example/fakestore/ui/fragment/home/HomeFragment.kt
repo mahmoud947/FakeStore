@@ -64,7 +64,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             override fun onAddToFavoriteClick(item: Product) {
                 Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
                 viewModel.addProductTOFavorite(item)
-                viewModel.updateFavoriteProduct(item)
             }
         }
         menAdapter = ProductAdapter(interaction = onItemClicked)

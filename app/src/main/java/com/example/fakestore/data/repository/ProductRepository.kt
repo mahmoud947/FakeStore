@@ -53,6 +53,4 @@ class ProductRepository @Inject constructor(
     suspend fun addProductToFavorite(product: Product) = dao.addToFavorite(product)
 
     suspend fun getFavoriteProduct(id: Int):Product = dao.getFavoriteProduct(id)
-
-    suspend fun removeProductFromFavorite(id:Int) = dao.deleteFromFavorite(id)
 }

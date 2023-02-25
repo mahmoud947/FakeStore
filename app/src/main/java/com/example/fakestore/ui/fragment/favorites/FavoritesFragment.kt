@@ -1,6 +1,7 @@
 package com.example.fakestore.ui.fragment.favorites
 
-import android.view.View
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fakestore.R
@@ -44,18 +45,9 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoriteViewMod
     }
 
     override fun onInitViewModel() {
-        viewModel.favoriteProducts.observe(viewLifecycleOwner) { products ->
-            if (products.isNotEmpty()) {
-                favoriteProductAdapter.isLoading = false
-                favoriteProductAdapter.submitList(products)
-                binding.llEmptyFavoriteProducts.visibility = View.GONE
-            } else {
-                favoriteProductAdapter.isLoading = false
-                binding.llEmptyFavoriteProducts.visibility = View.VISIBLE
-                binding.rvFavoritesProducts.visibility = View.GONE
-
-            }
-
+        viewModel.favoriteProducts.observe(viewLifecycleOwner) {
+            favoriteProductAdapter.isLoading = false
+            favoriteProductAdapter.submitList(it)
         }
     }
 
