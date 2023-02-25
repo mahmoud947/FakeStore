@@ -29,10 +29,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
+                <androidx.viewpager2.widget.ViewPager2
+
+
                     android:id="@+id/rv_product_images"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="400dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:paddingStart="80dp"
+                    android:paddingEnd="80dp"
                     tools:layout_height="400dp"
                     tools:listitem="@layout/item_product_image" />
 
