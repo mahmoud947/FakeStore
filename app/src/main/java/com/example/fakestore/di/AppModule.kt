@@ -7,6 +7,7 @@ import com.example.fakestore.data.remote.FakeStoreApi
 import com.example.fakestore.data.remote.UnsplashApi
 import com.example.fakestore.data.repository.AuthRepository
 import com.example.fakestore.data.repository.ProductRepository
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,11 +28,13 @@ object AppModule {
         dao: ProductDao
     ): ProductRepository = ProductRepository(api = api, unsplashApi = unsplashApi, dao = dao)
 
+    @Provides
+    @Singleton
     fun provideAuthRepository(
         api: FakeStoreApi,
         @Named("Auth")
         prefs: SharedPreferences
-    ): AuthRepository = AuthRepository(api = api, prefs = prefs)
+    ): AuthRepository = AuthRepository(api = api, prefs = prefs, auth = FirebaseAuth.getInstance())
 
     @Singleton
     @Provides

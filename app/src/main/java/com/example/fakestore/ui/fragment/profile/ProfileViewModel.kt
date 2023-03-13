@@ -17,6 +17,7 @@ class ProfileViewModel @Inject constructor(
     private val _user = MutableLiveData<DataState<User>>()
     val user: LiveData<DataState<User>> get() = _user
 
+
     init {
         getUserInfo()
     }

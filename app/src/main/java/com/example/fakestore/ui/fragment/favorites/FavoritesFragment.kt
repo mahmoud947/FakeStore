@@ -18,8 +18,8 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoriteViewMod
     viewModelClass = FavoriteViewModel::class.java,
     isSharedViewModel = false
 ) {
-    lateinit var favoriteLayoutManager: WrapContentLinearLayoutManager
-    lateinit var favoriteProductAdapter: FavoritesProductAdapter
+    private lateinit var favoriteLayoutManager: WrapContentLinearLayoutManager
+    private lateinit var favoriteProductAdapter: FavoritesProductAdapter
 
     override fun onInitDataBinding() {
         favoriteLayoutManager =

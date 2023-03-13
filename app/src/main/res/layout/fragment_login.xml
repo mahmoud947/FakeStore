@@ -100,6 +100,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         android:src="@drawable/login_image" />
 
+    <TextView
+        android:id="@+id/tv_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/don_t_have_an_account_yet_sign_up"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

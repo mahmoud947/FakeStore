@@ -1,6 +1,7 @@
 package com.example.fakestore.ui.fragment.login
 
 import android.content.Intent
+import androidx.navigation.fragment.findNavController
 import com.example.fakestore.R
 import com.example.fakestore.core.data.DataState
 import com.example.fakestore.core.data.getData
@@ -23,6 +24,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                     password = binding.etPassword.text.toString()
                 )
             }
+        }
+
+        binding.tvSignup.setOnClickListener {
+           findNavController().navigate(
+               LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+           )
         }
     }
 
