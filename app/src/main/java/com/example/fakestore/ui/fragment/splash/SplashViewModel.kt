@@ -31,12 +31,12 @@ class SplashViewModel @Inject constructor(
     private fun navigate() {
         viewModelScope.launch {
             delay(1000)
-            if (authRepository.getToken()!=null || googleAuth.currentUser!=null) {
-                _navigateToMain.value = AuthState.AUTHENTICATED
-            }else{
-                _navigateToMain.value = AuthState.UNAUTHENTICATED
-            }
-
+//            if (authRepository.getToken()!=null || googleAuth.currentUser!=null) {
+//                _navigateToMain.value = AuthState.AUTHENTICATED
+//            }else{
+//                _navigateToMain.value = AuthState.UNAUTHENTICATED
+//            }
+            _navigateToMain.value = AuthState.AUTHENTICATED
         }
     }
 
